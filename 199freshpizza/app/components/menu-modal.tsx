@@ -1,6 +1,6 @@
 "use client"
 
-import { X, Plus, Check, Star, Menu } from "lucide-react"
+import { X, Plus, Check, Star, Menu, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useCart } from "../context/cart-context"
@@ -160,130 +160,384 @@ const getCategoryImage = (category: string) => {
   )
 }
 
+// Available toppings
+const toppingsList = {
+  regular: [
+    "Extra Cheese",
+    "Beef Pepperoni",
+    "Beef Sausage",
+    "Ham",
+    "Mushroom",
+    "Black Olive",
+    "Green Pepper",
+    "Pineapple",
+    "Jalapeño",
+  ],
+  chicken: ["Chicken", "BBQ Chicken", "Buffalo Chicken", "Ranch Chicken"],
+  veggie: ["Extra Cheese", "Mushroom", "Black Olive", "Green Pepper", "Pineapple", "Jalapeño"],
+  meatLover: ["Extra Cheese", "Beef Pepperoni", "Beef Sausage", "Ham", "Chicken"],
+}
+
 const menuData = {
   pies: {
     title: "Pizza Pies",
-    note: 'Choose your size: 12", 16", or 18". Toppings & half toppings available.',
+    note: 'Choose your size and configuration. Toppings & customization available.',
     items: [
+      // 12" Cheese Pie with Toppings
       {
         id: 101,
-        name: "Cheese Pie",
-        description: "Classic cheese pizza with signature marinara sauce and a blend of cheeses",
-        prices: { "12": 13, "16": 15, "18": 16 },
+        name: '12" Cheese Pie with Toppings',
+        description: "A 12-inch cheese pie with options of extra cheese, beef pepperoni, beef sausage, ham, mushroom, black olive, green pepper, pineapple, or jalapeño.",
+        basePrice: 13,
+        size: "12",
         rating: 4.5,
-        category: "basic",
-        hasCustomization: true,
+        configurationType: "withToppings",
+        toppingConfig: {
+          required: false,
+          maxToppings: 8,
+          pricePerTopping: 4,
+          availableToppings: toppingsList.regular,
+        },
       },
+      // 16" Cheese Pie with Half Toppings
       {
         id: 102,
-        name: "Hawaiian Pie",
-        description: "Cheese with pineapple & ham",
-        prices: { "12": 19, "16": 25, "18": 28 },
+        name: '16" Cheese Pie with Half Toppings',
+        description: "A 16-inch cheese pie with half toppings option.",
+        basePrice: 15,
+        size: "16",
         rating: 4.5,
-        category: "specialty",
-        hasCustomization: true,
+        configurationType: "halfToppings",
+        toppingConfig: {
+          required: false,
+          maxToppings: 8,
+          pricePerTopping: 4,
+          availableToppings: toppingsList.regular,
+        },
       },
+      // 16" Cheese Pie with Half Veggie
       {
         id: 103,
-        name: "Veggie Pie",
-        description: "Extra cheese, mushroom, black olive, green pepper, pineapple, jalapeño",
-        prices: { "12": 20, "16": 25, "18": 28 },
-        rating: 4.4,
-        category: "specialty",
-        hasCustomization: true,
+        name: '16" Cheese Pie with Half Veggie',
+        description: "A 16-inch cheese pie with half veggie toppings.",
+        basePrice: 20,
+        size: "16",
+        rating: 4.6,
+        configurationType: "halfVeggie",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
       },
+      // 16" Cheese Pie with Half Meat Lover
       {
         id: 104,
-        name: "Meat Lover Pie",
-        description: "Extra cheese, beef pepperoni, beef sausage, ham, chicken",
-        prices: { "12": 21, "16": 26, "18": 30 },
-        rating: 4.8,
-        category: "specialty",
-        hasCustomization: true,
+        name: '16" Cheese Pie with Half Meat Lover',
+        description: "A 16-inch cheese pie with half meat lover toppings.",
+        basePrice: 22,
+        size: "16",
+        rating: 4.7,
+        configurationType: "halfMeatLover",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
       },
+      // 16" Cheese Pie with Toppings
       {
         id: 105,
-        name: "Chicken Pie",
-        description: "Cheese pizza topped with seasoned chicken",
-        prices: { "12": 18, "16": 22, "18": 25 },
-        rating: 4.7,
-        category: "specialty",
-        hasCustomization: true,
+        name: '16" Cheese Pie with Toppings',
+        description: "A 16-inch cheese pie with full toppings.",
+        basePrice: 15,
+        size: "16",
+        rating: 4.5,
+        configurationType: "withToppings",
+        toppingConfig: {
+          required: false,
+          maxToppings: 8,
+          pricePerTopping: 7,
+          availableToppings: toppingsList.regular,
+        },
       },
+      // 18" Cheese Pie with Half Toppings
       {
         id: 106,
-        name: "Buffalo Chicken Pie",
-        description: "Cheese, chicken and buffalo sauce on top",
-        prices: { "12": 18, "16": 22, "18": 25 },
-        rating: 4.9,
-        category: "specialty",
-        hasCustomization: true,
+        name: '18" Cheese Pie with Half Toppings',
+        description: "An 18-inch cheese pie with half toppings (first topping required and free).",
+        basePrice: 21,
+        size: "18",
+        rating: 4.6,
+        configurationType: "halfToppings",
+        toppingConfig: {
+          required: true,
+          maxToppings: 8,
+          pricePerTopping: 5,
+          firstToppingFree: true,
+          availableToppings: toppingsList.regular,
+        },
       },
+      // 18" Cheese Pie with Toppings
       {
         id: 107,
-        name: "BBQ Chicken Pie",
-        description: "Cheese, chicken and BBQ sauce on top",
-        prices: { "12": 18, "16": 22, "18": 25 },
-        rating: 4.8,
-        category: "specialty",
-        hasCustomization: true,
+        name: '18" Cheese Pie with Toppings',
+        description: "An 18-inch cheese pie with full toppings.",
+        basePrice: 16,
+        size: "18",
+        rating: 4.5,
+        configurationType: "withToppings",
+        toppingConfig: {
+          required: false,
+          maxToppings: 8,
+          pricePerTopping: 9,
+          availableToppings: toppingsList.regular,
+        },
       },
+      // 18" Cheese Pie with Half Chicken Toppings
       {
         id: 108,
-        name: "Chicken Ranch Pie",
-        description: "Cheese, chicken and ranch sauce on top",
-        prices: { "12": 18, "16": 22, "18": 25 },
-        rating: 4.6,
-        category: "specialty",
-        hasCustomization: true,
+        name: '18" Cheese Pie with Half Chicken Toppings',
+        description: "An 18-inch cheese pie with half chicken toppings (only chicken, bbq, ranch, and buffalo chicken).",
+        basePrice: 21,
+        size: "18",
+        rating: 4.7,
+        configurationType: "halfChicken",
+        toppingConfig: {
+          required: false,
+          maxToppings: 4,
+          pricePerTopping: 5,
+          availableToppings: toppingsList.chicken,
+        },
       },
+      // 18" Cheese Pie with Half Veggie
       {
         id: 109,
-        name: "Supreme Pie",
-        description:
-          "Extra cheese, beef pepperoni, beef sausage, ham, chicken, mushroom, black olive, green pepper, pineapple, jalapeño",
-        prices: { "12": 22, "16": 27, "18": 32 },
-        rating: 4.9,
-        category: "specialty",
-        hasCustomization: true,
+        name: '18" Cheese Pie with Half Veggie',
+        description: "An 18-inch cheese pie with half veggie toppings.",
+        basePrice: 24,
+        size: "18",
+        rating: 4.6,
+        configurationType: "halfVeggie",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
       },
+      // 18" Cheese Pie with Half Meat Lover
       {
         id: 110,
-        name: "Pesto Shrimp Pie",
-        description: "Shrimp atop a basil pesto sauce, sun-dried tomatoes.",
-        prices: { "12": 25, "18": 35 },
+        name: '18" Cheese Pie with Half Meat Lover',
+        description: "An 18-inch cheese pie with half meat lover toppings.",
+        basePrice: 25,
+        size: "18",
+        rating: 4.8,
+        configurationType: "halfMeatLover",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 16" Half Hawaiian Pie
+      {
+        id: 111,
+        name: '16" Half Hawaiian Pie',
+        description: "A 16-inch half Hawaiian pie with cheese, ham, and pineapple.",
+        basePrice: 20,
+        size: "16",
+        rating: 4.5,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 18" Half Hawaiian Pie
+      {
+        id: 112,
+        name: '18" Half Hawaiian Pie',
+        description: "An 18-inch half Hawaiian pie with cheese, ham, and pineapple.",
+        basePrice: 22,
+        size: "18",
+        rating: 4.5,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 16" Half Chicken Pie
+      {
+        id: 113,
+        name: '16" Half Chicken Pie',
+        description: "A 16-inch half chicken pie with cheese and seasoned chicken.",
+        basePrice: 19,
+        size: "16",
+        rating: 4.7,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 18" Half Chicken Pie
+      {
+        id: 114,
+        name: '18" Half Chicken Pie',
+        description: "An 18-inch half chicken pie with cheese and seasoned chicken.",
+        basePrice: 21,
+        size: "18",
+        rating: 4.7,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 16" Half Buffalo Chicken Pie
+      {
+        id: 115,
+        name: '16" Half Buffalo Chicken Pie',
+        description: "A 16-inch half buffalo chicken pie with cheese, chicken, and buffalo sauce.",
+        basePrice: 19,
+        size: "16",
+        rating: 4.9,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 18" Half Buffalo Chicken Pie
+      {
+        id: 116,
+        name: '18" Half Buffalo Chicken Pie',
+        description: "An 18-inch half buffalo chicken pie with cheese, chicken, and buffalo sauce.",
+        basePrice: 21,
+        size: "18",
+        rating: 4.9,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 16" Half BBQ Chicken Pie
+      {
+        id: 117,
+        name: '16" Half BBQ Chicken Pie',
+        description: "A 16-inch half BBQ chicken pie with cheese, chicken, and BBQ sauce.",
+        basePrice: 19,
+        size: "16",
+        rating: 4.8,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 18" Half BBQ Chicken Pie
+      {
+        id: 118,
+        name: '18" Half BBQ Chicken Pie',
+        description: "An 18-inch half BBQ chicken pie with cheese, chicken, and BBQ sauce.",
+        basePrice: 21,
+        size: "18",
+        rating: 4.8,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 16" Half Chicken Ranch Pie
+      {
+        id: 119,
+        name: '16" Half Chicken Ranch Pie',
+        description: "A 16-inch half chicken ranch pie with cheese, chicken, and ranch sauce.",
+        basePrice: 19,
+        size: "16",
         rating: 4.6,
-        category: "specialty",
-        hasCustomization: true,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 16" Half Supreme Pie
+      {
+        id: 120,
+        name: '16" Half Supreme Pie',
+        description: "A 16-inch half supreme pie with all toppings (toppings option included but free).",
+        basePrice: 22,
+        size: "16",
+        rating: 4.9,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
+      },
+      // 18" Half Supreme Pie
+      {
+        id: 121,
+        name: '18" Half Supreme Pie',
+        description: "An 18-inch half supreme pie with all toppings (toppings option included but free).",
+        basePrice: 26,
+        size: "18",
+        rating: 4.9,
+        configurationType: "specialty",
+        toppingConfig: {
+          required: false,
+          maxToppings: 0,
+          pricePerTopping: 0,
+          availableToppings: [],
+        },
       },
     ],
-    extraToppings: {
-      "12": 4,
-      "16": 4,
-      "18": 5,
-    },
-    toppingOptions: [
-      "Beef Pepperoni",
-      "Extra Cheese",
-      "Beef Sausage",
-      "Ham",
-      "Mushrooms",
-      "Black Olives",
-      "Peppers",
-      "Pineapple",
-      "Jalapeños",
-    ],
     recommendedBeverages: [
+      { name: "Can Soda", price: 1.25 },
       { name: "Water", price: 1.0 },
-      { name: "Small Red Bull", price: 3.25 },
-      { name: "Arizona", price: 1.5 },
+      { name: "Bottle Soda 20oz", price: 2.5 },
+      { name: "Small Red Bull", price: 3.5 },
       { name: "Snapple", price: 2.0 },
-      { name: "Bottled Soda", price: 2.5 },
-      { name: "Canned Soda", price: 1.25 },
     ],
     recommendedSides: [
+      { name: "Garlic Knots", price: 3.0 },
       { name: "Beef Patty", price: 4.0 },
-      { name: "Beef Patty w/ Toppings", price: 7.25 },
+      { name: "Large Fries", price: 3.5 },
+      { name: "Small Fries", price: 2.5 },
+    ],
+    recommendedDesserts: [
+      { name: '12" Dubai chocolate pizza', price: 26.0 },
+      { name: '12" Strawberry Chocolate Pizza', price: 22.0 },
+      { name: '12" S\'mores Pizza', price: 22.0 },
     ],
   },
   slices: {
@@ -292,88 +546,81 @@ const menuData = {
     items: [
       {
         id: 201,
-        name: "Cheese Slice",
-        description: "Classic cheese pizza slice",
-        price: 1.99,
+        name: "Cheese Slice with Toppings",
+        description: "Classic cheese pizza slice with your choice of toppings (first topping required).",
+        basePrice: 1.99,
         rating: 4.5,
-        category: "basic",
+        toppingConfig: {
+          required: true,
+          maxToppings: 8,
+          pricePerTopping: 2,
+          availableToppings: toppingsList.regular,
+        },
       },
       {
         id: 202,
         name: "Hawaiian Slice",
         description: "Cheese with pineapple & ham",
-        price: 5.5,
+        basePrice: 5.5,
         rating: 4.5,
-        category: "specialty",
+        toppingConfig: null,
       },
       {
         id: 203,
         name: "Veggie Slice",
         description: "Extra cheese, mushroom, black olive, green pepper, pineapple, jalapeño",
-        price: 5.5,
+        basePrice: 5.5,
         rating: 4.4,
-        category: "specialty",
+        toppingConfig: null,
       },
       {
         id: 204,
         name: "Meat Lover Slice",
         description: "Extra cheese, beef pepperoni, beef sausage, ham, chicken",
-        price: 6.0,
+        basePrice: 6.0,
         rating: 4.8,
-        category: "specialty",
+        toppingConfig: null,
       },
       {
         id: 205,
         name: "Chicken Slice",
         description: "Cheese pizza slice topped with seasoned chicken",
-        price: 4.0,
+        basePrice: 4.0,
         rating: 4.7,
-        category: "specialty",
+        toppingConfig: null,
       },
       {
         id: 206,
         name: "BBQ Chicken Slice",
         description: "Grilled chicken, BBQ sauce, and melted cheese",
-        price: 4.0,
+        basePrice: 4.0,
         rating: 4.8,
-        category: "specialty",
+        toppingConfig: null,
       },
       {
         id: 207,
         name: "Buffalo Chicken Slice",
         description: "Tender chicken, buffalo sauce, and melted mozzarella",
-        price: 4.0,
+        basePrice: 4.0,
         rating: 4.9,
-        category: "specialty",
+        toppingConfig: null,
       },
       {
         id: 208,
         name: "Chicken Ranch Slice",
         description: "Diced chicken and ranch dressing on a pizza slice",
-        price: 4.0,
+        basePrice: 4.0,
         rating: 4.6,
-        category: "specialty",
+        toppingConfig: null,
       },
       {
         id: 209,
         name: "Supreme Slice",
-        description: "Extra Cheese, Beef Pepperoni, Beef Sausage, Ham, Chicken,Buffalo Chicken,BBQ Chicken,Chiken Ranch,Mushroom, Black Olive, Green pepper, Pineapple, jalapeños.",
-        price: 6.75,
+        description: "Extra Cheese, Beef Pepperoni, Beef Sausage, Ham, Chicken, Mushroom, Black Olive, Green pepper, Pineapple, jalapeños.",
+        basePrice: 6.75,
         rating: 4.6,
-        category: "specialty",
+        toppingConfig: null,
       },
-    ],
-    toppingPrice: 2.00,
-    toppingOptions: [
-      "Extra Cheese",
-      "Beef Sausage",
-      "Ham",
-      "Mushrooms",
-      "Black Olives",
-      "Peppers",
-      "Pineapple",
-      "Beef Pepperoni",
-      "Jalapeños",
     ],
     recommendedBeverages: [
       { name: "Water", price: 1.0 },
@@ -381,9 +628,15 @@ const menuData = {
       { name: "Arizona", price: 1.5 },
       { name: "Snapple", price: 2.0 },
       { name: "Canned Soda", price: 1.25 },
-      { name: "Bottle Soda 20oz", price: 2.5 },
     ],
-    recommendedSides: [{ name: "Beef Patty", price: 4.0 }],
+    recommendedSides: [
+      { name: "Beef Patty", price: 4.0 },
+    ],
+    recommendedDesserts: [
+      { name: '12" Dubai chocolate pizza', price: 26.0 },
+      { name: '12" Strawberry Chocolate Pizza', price: 22.0 },
+      { name: '12" S\'mores Pizza', price: 22.0 },
+    ],
   },
   specials: {
     title: "All Time Specials",
@@ -393,41 +646,36 @@ const menuData = {
         id: 301,
         name: "2 Cheese Slices with 1 Can of Soda or Water",
         description: "Two cheese slices with your choice of canned soda or water",
-        price: 5.0,
+        basePrice: 5.0,
         rating: 5.0,
-        category: "combo",
       },
       {
         id: 302,
         name: "1 Cheese Slice, 4 pcs Chicken Wings, 2 pcs Garlic Knots with Can of Soda or Water",
         description: "With 1 can of soda or water",
-        price: 10.0,
+        basePrice: 10.0,
         rating: 4.8,
-        category: "combo",
       },
       {
         id: 303,
         name: "Chicken Sandwich Meal with 3 Nuggets & Small Fries, Can of Soda or Water Bottle",
         description: "Chicken sandwich with 3 nuggets & small fries, can of soda or water",
-        price: 7.5,
+        basePrice: 7.5,
         rating: 4.7,
-        category: "combo",
       },
       {
         id: 304,
         name: "Cheeseburger Meal with Small Fries, Can of Soda or Water Bottle",
         description: "Cheeseburger with small fries, can of soda or water",
-        price: 8.50,
+        basePrice: 8.50,
         rating: 4.6,
-        category: "combo",
       },
       {
         id: 305,
         name: "5 pcs Chicken Nuggets Meal with Small Fries, Can of Soda or Water Bottle",
         description: "5 piece chicken nuggets with small fries, can of soda or water",
-        price: 6.5,
+        basePrice: 6.5,
         rating: 4.5,
-        category: "combo",
       },
     ],
   },
@@ -439,57 +687,50 @@ const menuData = {
         id: 801,
         name: "Garlic Knots",
         description: "3 pieces of freshly baked garlic knots",
-        price: 3.0,
+        basePrice: 3.0,
         rating: 4.6,
-        category: "sides",
       },
       {
         id: 802,
         name: "6 pcs Crispy Chicken Wings with BBQ or Buffalo Sauce",
         description: "6 pieces of crispy fried chicken wings",
-        price: 8.0,
+        basePrice: 8.0,
         rating: 4.8,
-        category: "sides",
       },
       {
         id: 803,
         name: "12 pcs Crispy Chicken Wings with BBQ or Buffalo Sauce",
         description: "12 pieces of crispy fried chicken wings",
-        price: 15.0,
+        basePrice: 15.0,
         rating: 4.8,
-        category: "sides",
       },
       {
         id: 804,
         name: "6 pcs Chicken Nuggets",
         description: "6 pieces of golden chicken nuggets",
-        price: 5.0,
+        basePrice: 5.0,
         rating: 4.5,
-        category: "sides",
       },
       {
         id: 805,
         name: "10 pcs Chicken Nuggets",
         description: "10 pieces of golden chicken nuggets",
-        price: 8.0,
+        basePrice: 8.0,
         rating: 4.5,
-        category: "sides",
       },
       {
         id: 806,
         name: "Beef Patty",
         description: "Seasoned beef patty, perfectly grilled",
-        price: 4.0,
+        basePrice: 4.0,
         rating: 4.5,
-        category: "sides",
       },
       {
         id: 807,
         name: "Beef Patty w/ Toppings",
         description: "Seasoned beef patty, perfectly grilled with choice of toppings.",
-        price: 7.25,
+        basePrice: 7.25,
         rating: 4.5,
-        category: "sides",
       },
     ],
   },
@@ -501,49 +742,43 @@ const menuData = {
         id: 501,
         name: "Canned Soda",
         description: "Coca-Cola, Pepsi, Sprite, Dr. Pepper, and more",
-        price: 1.25,
+        basePrice: 1.25,
         rating: 4.2,
-        category: "beverage",
       },
       {
         id: 502,
         name: "Water",
         description: "Pure refreshing water",
-        price: 1.0,
+        basePrice: 1.0,
         rating: 4.0,
-        category: "beverage",
       },
       {
         id: 503,
         name: "Bottled Soda",
         description: "20oz bottle of your favorite soda",
-        price: 2.5,
+        basePrice: 2.5,
         rating: 4.1,
-        category: "beverage",
       },
       {
         id: 504,
         name: "Snapple",
         description: "Variety of Snapple flavors",
-        price: 2.0,
+        basePrice: 2.0,
         rating: 4.4,
-        category: "beverage",
       },
       {
         id: 505,
         name: "Arizona",
         description: "Arizona iced tea varieties",
-        price: 1.5,
+        basePrice: 1.5,
         rating: 4.3,
-        category: "beverage",
       },
       {
         id: 506,
         name: "Small Red Bull",
         description: "Energy drink for that extra boost",
-        price: 3.25,
+        basePrice: 3.25,
         rating: 4.5,
-        category: "beverage",
       },
     ],
   },
@@ -555,17 +790,15 @@ const menuData = {
         id: 901,
         name: "Hot Dog",
         description: "Classic hot dog served in a soft bun",
-        price: 3.5,
+        basePrice: 3.5,
         rating: 4.4,
-        category: "hotdog",
       },
       {
         id: 902,
         name: "Spicy Hot Dog w/Jalapeno BBQ Sauce",
         description: "Hot dog topped with spicy jalapeno BBQ sauce",
-        price: 4.5,
+        basePrice: 4.5,
         rating: 4.6,
-        category: "hotdog",
       },
     ],
   },
@@ -577,41 +810,36 @@ const menuData = {
         id: 1001,
         name: "Chicken Sandwich",
         description: "Crispy chicken sandwich with lettuce and mayo",
-        price: 5.0,
+        basePrice: 5.0,
         rating: 4.5,
-        category: "sandwich",
       },
       {
         id: 1002,
         name: "Cheeseburger",
         description: "Juicy beef patty with melted cheese, lettuce, tomato, and special sauce",
-        price: 7.5,
+        basePrice: 7.5,
         rating: 4.7,
-        category: "burger",
       },
       {
         id: 1003,
         name: "Veggie Burger",
         description: "Plant-based patty with fresh vegetables and sauce",
-        price: 7.5,
+        basePrice: 7.5,
         rating: 4.4,
-        category: "burger",
       },
       {
         id: 1004,
         name: "Small fries",
         description: "Golden, crispy fries lightly salted.",
-        price: 2.5,
+        basePrice: 2.5,
         rating: 4.7,
-        category: "fries",
       },
       {
         id: 1005,
         name: "Large fries",
         description: "Golden, crispy fries lightly salted.",
-        price: 3.5,
+        basePrice: 3.5,
         rating: 4.4,
-        category: "fries",
       },
     ],
   },
@@ -623,25 +851,22 @@ const menuData = {
         id: 1201,
         name: "Dubai Chocolate Pizza",
         description: "Decadent chocolate pizza with premium Dubai-style toppings",
-        price: 26.0,
+        basePrice: 26.0,
         rating: 4.9,
-        category: "dessert",
       },
       {
         id: 1202,
         name: "S'mores Chocolate Pizza",
         description: "Chocolate pizza topped with marshmallows and graham cracker crumbles",
-        price: 22.0,
+        basePrice: 22.0,
         rating: 4.8,
-        category: "dessert",
       },
       {
         id: 1203,
         name: "Strawberry Chocolate Pizza",
         description: "Chocolate pizza topped with fresh strawberries and drizzle",
-        price: 22.0,
+        basePrice: 22.0,
         rating: 4.7,
-        category: "dessert",
       },
     ],
   },
@@ -651,25 +876,24 @@ export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
   const { addItem } = useCart()
   const [addedItems, setAddedItems] = useState<Set<string>>(new Set())
   const [activeCategory, setActiveCategory] = useState("pies")
-  const [selectedSizes, setSelectedSizes] = useState<{ [key: number]: string }>({})
   const [selectedToppings, setSelectedToppings] = useState<{ [key: number]: string[] }>({})
   const [selectedBeverages, setSelectedBeverages] = useState<{ [key: number]: string[] }>({})
   const [selectedSides, setSelectedSides] = useState<{ [key: number]: string[] }>({})
+  const [selectedDesserts, setSelectedDesserts] = useState<{ [key: number]: string[] }>({})
+  const [specialInstructions, setSpecialInstructions] = useState<{ [key: number]: string }>({})
   const [showCustomization, setShowCustomization] = useState<{ [key: number]: boolean }>({})
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false)
 
   if (!isOpen) return null
 
-  const handleSizeChange = (itemId: number, size: string) => {
-    setSelectedSizes((prev) => ({ ...prev, [itemId]: size }))
-  }
-
-  const handleToppingToggle = (itemId: number, topping: string) => {
+  const handleToppingToggle = (itemId: number, topping: string, maxToppings: number) => {
     setSelectedToppings((prev) => {
       const currentToppings = prev[itemId] || []
       const newToppings = currentToppings.includes(topping)
         ? currentToppings.filter((t) => t !== topping)
-        : [...currentToppings, topping]
+        : currentToppings.length < maxToppings
+          ? [...currentToppings, topping]
+          : currentToppings
       return { ...prev, [itemId]: newToppings }
     })
   }
@@ -677,10 +901,11 @@ export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
   const handleBeverageToggle = (itemId: number, beverage: string) => {
     setSelectedBeverages((prev) => {
       const currentBeverages = prev[itemId] || []
-      if (currentBeverages.length >= 5 && currentBeverages.includes(beverage)) return prev
       const newBeverages = currentBeverages.includes(beverage)
         ? currentBeverages.filter((b) => b !== beverage)
-        : [...currentBeverages, beverage]
+        : currentBeverages.length < 5
+          ? [...currentBeverages, beverage]
+          : currentBeverages
       return { ...prev, [itemId]: newBeverages }
     })
   }
@@ -688,88 +913,104 @@ export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
   const handleSideToggle = (itemId: number, side: string) => {
     setSelectedSides((prev) => {
       const currentSides = prev[itemId] || []
-      const newSides = currentSides.includes(side) ? currentSides.filter((s) => s !== side) : [...currentSides, side]
+      const newSides = currentSides.includes(side)
+        ? currentSides.filter((s) => s !== side)
+        : currentSides.length < 4
+          ? [...currentSides, side]
+          : currentSides
       return { ...prev, [itemId]: newSides }
     })
   }
 
+  const handleDessertToggle = (itemId: number, dessert: string) => {
+    setSelectedDesserts((prev) => {
+      const currentDesserts = prev[itemId] || []
+      const newDesserts = currentDesserts.includes(dessert)
+        ? currentDesserts.filter((d) => d !== dessert)
+        : currentDesserts.length < 3
+          ? [...currentDesserts, dessert]
+          : currentDesserts
+      return { ...prev, [itemId]: newDesserts }
+    })
+  }
+
   const calculatePrice = (item: any, category: string) => {
-    if (category === "pies") {
-      const selectedSize = selectedSizes[item.id] || "12"
-      const basePrice = item.prices[selectedSize] || item.prices["12"]
+    let totalPrice = item.basePrice || item.price || 0
+
+    // Handle topping pricing
+    if (item.toppingConfig) {
       const toppings = selectedToppings[item.id] || []
-      const beverages = selectedBeverages[item.id] || []
-      const sides = selectedSides[item.id] || []
+      const { pricePerTopping, firstToppingFree } = item.toppingConfig
 
-      let totalPrice = basePrice
-
-      // Add topping price if any toppings selected
-      if (toppings.length > 0) {
-        totalPrice += menuData.pies.extraToppings[selectedSize as keyof typeof menuData.pies.extraToppings]
+      if (firstToppingFree && toppings.length > 0) {
+        // First topping is free, charge for remaining
+        totalPrice += pricePerTopping * (toppings.length - 1)
+      } else {
+        totalPrice += pricePerTopping * toppings.length
       }
-
-      // Add beverage prices
-      beverages.forEach((bev) => {
-        const bevItem = menuData.pies.recommendedBeverages.find((b) => b.name === bev)
-        if (bevItem) totalPrice += bevItem.price
-      })
-
-      // Add side prices
-      sides.forEach((side) => {
-        const sideItem = menuData.pies.recommendedSides.find((s) => s.name === side)
-        if (sideItem) totalPrice += sideItem.price
-      })
-
-      return totalPrice
-    } else if (category === "slices") {
-      let totalPrice = item.price
-      const toppings = selectedToppings[item.id] || []
-      if (toppings.length > 0) {
-        totalPrice += menuData.slices.toppingPrice * toppings.length
-      }
-      // Add beverage prices
-      const beverages = selectedBeverages[item.id] || []
-      beverages.forEach((bev) => {
-        const bevItem = menuData.slices.recommendedBeverages.find((b) => b.name === bev)
-        if (bevItem) totalPrice += bevItem.price
-      })
-
-      // Add side prices
-      const sides = selectedSides[item.id] || []
-      sides.forEach((side) => {
-        const sideItem = menuData.slices.recommendedSides.find((s) => s.name === side)
-        if (sideItem) totalPrice += sideItem.price
-      })
-      return totalPrice
     }
 
-    return item.price
+    // Add beverage prices
+    if (activeCategory === "pies" || activeCategory === "slices") {
+      const beverages = selectedBeverages[item.id] || []
+      const categoryData = menuData[activeCategory as keyof typeof menuData] as any
+      beverages.forEach((bev) => {
+        const bevItem = categoryData.recommendedBeverages?.find((b: any) => b.name === bev)
+        if (bevItem) totalPrice += bevItem.price
+      })
+
+      // Add side prices
+      const sides = selectedSides[item.id] || []
+      sides.forEach((side) => {
+        const sideItem = categoryData.recommendedSides?.find((s: any) => s.name === side)
+        if (sideItem) totalPrice += sideItem.price
+      })
+
+      // Add dessert prices
+      const desserts = selectedDesserts[item.id] || []
+      desserts.forEach((dessert) => {
+        const dessertItem = categoryData.recommendedDesserts?.find((d: any) => d.name === dessert)
+        if (dessertItem) totalPrice += dessertItem.price
+      })
+    }
+
+    return totalPrice
   }
 
   const handleAddToCart = (item: any, category: string) => {
-    const selectedSize = selectedSizes[item.id] || "12"
+    // Validate required toppings
+    if (item.toppingConfig?.required) {
+      const toppings = selectedToppings[item.id] || []
+      if (toppings.length === 0) {
+        alert("Please select at least one topping (required)")
+        return
+      }
+    }
+
     const toppings = selectedToppings[item.id] || []
     const beverages = selectedBeverages[item.id] || []
     const sides = selectedSides[item.id] || []
+    const desserts = selectedDesserts[item.id] || []
+    const instructions = specialInstructions[item.id] || ""
 
     const finalPrice = calculatePrice(item, category)
 
     // Build description with customizations
     let description = item.description
-    if (category === "pies" && (toppings.length > 0 || beverages.length > 0 || sides.length > 0)) {
-      const parts = []
-      if (toppings.length > 0) parts.push(`Toppings: ${toppings.join(", ")}`)
-      if (beverages.length > 0) parts.push(`Drinks: ${beverages.join(", ")}`)
-      if (sides.length > 0) parts.push(`Sides: ${sides.join(", ")}`)
-      description = `${selectedSize}" - ${parts.join(" | ")}`
-    } else if (category === "pies") {
-      description = `${selectedSize}" ${item.name}`
-    } else if (category === "slices" && toppings.length > 0) {
-      description = `Toppings: ${toppings.join(", ")}`
+    const parts = []
+
+    if (toppings.length > 0) parts.push(`Toppings: ${toppings.join(", ")}`)
+    if (beverages.length > 0) parts.push(`Drinks: ${beverages.join(", ")}`)
+    if (sides.length > 0) parts.push(`Sides: ${sides.join(", ")}`)
+    if (desserts.length > 0) parts.push(`Desserts: ${desserts.join(", ")}`)
+    if (instructions) parts.push(`Special Instructions: ${instructions}`)
+
+    if (parts.length > 0) {
+      description = parts.join(" | ")
     }
 
     addItem({
-      id: item.id,
+      id: Date.now(), // Use timestamp to allow duplicate items with different customizations
       name: item.name,
       description,
       price: finalPrice,
@@ -786,6 +1027,13 @@ export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
         return newSet
       })
     }, 2000)
+
+    // Reset customization for this item
+    setSelectedToppings((prev) => ({ ...prev, [item.id]: [] }))
+    setSelectedBeverages((prev) => ({ ...prev, [item.id]: [] }))
+    setSelectedSides((prev) => ({ ...prev, [item.id]: [] }))
+    setSelectedDesserts((prev) => ({ ...prev, [item.id]: [] }))
+    setSpecialInstructions((prev) => ({ ...prev, [item.id]: "" }))
   }
 
   const toggleCustomization = (itemId: number) => {
@@ -899,111 +1147,204 @@ export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
                       {item.description}
                     </CardDescription>
 
-                    {/* Size Selection for Pies */}
-                    {activeCategory === "pies" && item.prices && (
-                      <div className="mb-4">
-                        <p className="text-sm font-medium text-cocoa-bean mb-2">Select Size:</p>
-                        <div className="flex gap-2">
-                          {Object.entries(item.prices).map(([size, price]) => (
-                            <button
-                              key={size}
-                              onClick={() => handleSizeChange(item.id, size)}
-                              className={`px-3 py-1 rounded-lg text-sm transition-all ${
-                                (selectedSizes[item.id] || "12") === size
-                                  ? "bg-siam text-white"
-                                  : "bg-venus/20 text-cocoa-bean hover:bg-venus/30"
-                              }`}
-                            >
-                              {size}" - ${price}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
                     {/* Customization Toggle for applicable items */}
-                    {(activeCategory === "pies" || activeCategory === "slices") &&
-                      item.hasCustomization !== false && (
-                        <button
-                          onClick={() => toggleCustomization(item.id)}
-                          className="text-sm text-siam hover:underline mb-2"
-                        >
-                          {showCustomization[item.id] ? "Hide" : "Show"} customization options
-                        </button>
-                      )}
+                    {(activeCategory === "pies" || activeCategory === "slices") && (
+                      <button
+                        onClick={() => toggleCustomization(item.id)}
+                        className="text-sm text-siam hover:underline mb-2 flex items-center gap-1"
+                      >
+                        {showCustomization[item.id] ? "Hide" : "Show"} customization options
+                      </button>
+                    )}
 
                     {/* Customization Options */}
                     {showCustomization[item.id] && (
-                      <div className="space-y-3 mb-4 p-3 bg-venus/10 rounded-lg">
+                      <div className="space-y-4 mb-4 p-4 bg-venus/10 rounded-lg border border-venus/20">
                         {/* Toppings */}
-                        {((activeCategory === "pies" && menuData.pies.toppingOptions) ||
-                          (activeCategory === "slices" && menuData.slices.toppingOptions)) && (
+                        {item.toppingConfig && item.toppingConfig.maxToppings > 0 && (
                           <div>
-                            <p className="text-xs font-medium text-cocoa-bean mb-1">Extra Toppings:</p>
-                            <div className="flex flex-wrap gap-1">
-                              {(activeCategory === "pies"
-                                ? menuData.pies.toppingOptions
-                                : menuData.slices.toppingOptions
-                              ).map((topping) => (
-                                <button
-                                  key={topping}
-                                  onClick={() => handleToppingToggle(item.id, topping)}
-                                  className={`px-2 py-0.5 rounded text-xs transition-all ${
-                                    (selectedToppings[item.id] || []).includes(topping)
-                                      ? "bg-siam text-white"
-                                      : "bg-white text-cocoa-bean hover:bg-venus/20"
-                                  }`}
-                                >
-                                  {topping}
-                                </button>
-                              ))}
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-2">
+                                <p className="text-sm font-semibold text-cocoa-bean">Topping Option</p>
+                                {item.toppingConfig.required && (
+                                  <span className="flex items-center gap-1 text-xs text-orange-600">
+                                    <AlertCircle className="w-3 h-3" />
+                                    Required
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-xs text-ferra">
+                                Select up to {item.toppingConfig.maxToppings}
+                              </span>
+                            </div>
+                            {item.toppingConfig.firstToppingFree && (
+                              <p className="text-xs text-green-600 mb-2">First topping is free!</p>
+                            )}
+                            <div className="space-y-2">
+                              {item.toppingConfig.availableToppings.map((topping: string) => {
+                                const isSelected = (selectedToppings[item.id] || []).includes(topping)
+                                const toppingIndex = (selectedToppings[item.id] || []).indexOf(topping)
+                                const isFree =
+                                  item.toppingConfig.firstToppingFree && toppingIndex === 0 && isSelected
+
+                                return (
+                                  <div
+                                    key={topping}
+                                    onClick={() =>
+                                      handleToppingToggle(item.id, topping, item.toppingConfig.maxToppings)
+                                    }
+                                    className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-all ${
+                                      isSelected ? "bg-siam/10 border border-siam" : "bg-white hover:bg-venus/20"
+                                    }`}
+                                  >
+                                    <span className="text-sm text-cocoa-bean">{topping}</span>
+                                    <div className="flex items-center gap-2">
+                                      {isFree ? (
+                                        <span className="text-xs text-green-600 font-medium">FREE</span>
+                                      ) : (
+                                        <span className="text-sm text-ferra">
+                                          +${item.toppingConfig.pricePerTopping.toFixed(2)}
+                                        </span>
+                                      )}
+                                      <button
+                                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                                          isSelected
+                                            ? "bg-siam text-white"
+                                            : "bg-gray-200 text-gray-400 hover:bg-gray-300"
+                                        }`}
+                                      >
+                                        {isSelected ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                                      </button>
+                                    </div>
+                                  </div>
+                                )
+                              })}
                             </div>
                           </div>
                         )}
 
-                        {/* Recommended Beverages for Pies */}
-                        {activeCategory === "pies" && menuData.pies.recommendedBeverages && (
+                        {/* Recommended Beverages */}
+                        {(menuData as any)[activeCategory]?.recommendedBeverages && (
                           <div>
-                            <p className="text-xs font-medium text-cocoa-bean mb-1">Add Beverages:</p>
-                            <div className="flex flex-wrap gap-1">
-                              {menuData.pies.recommendedBeverages.map((bev) => (
-                                <button
-                                  key={bev.name}
-                                  onClick={() => handleBeverageToggle(item.id, bev.name)}
-                                  className={`px-2 py-0.5 rounded text-xs transition-all ${
-                                    (selectedBeverages[item.id] || []).includes(bev.name)
-                                      ? "bg-siam text-white"
-                                      : "bg-white text-cocoa-bean hover:bg-venus/20"
-                                  }`}
-                                >
-                                  {bev.name} +${bev.price.toFixed(2)}
-                                </button>
-                              ))}
+                            <div className="flex items-center justify-between mb-2">
+                              <p className="text-sm font-semibold text-cocoa-bean">Recommended Beverages</p>
+                              <span className="text-xs text-ferra">(Optional) • Choose up to 5</span>
+                            </div>
+                            <div className="space-y-2">
+                              {(menuData as any)[activeCategory].recommendedBeverages.map((bev: any) => {
+                                const isSelected = (selectedBeverages[item.id] || []).includes(bev.name)
+                                return (
+                                  <div
+                                    key={bev.name}
+                                    className="flex items-center gap-3 p-2 bg-white rounded hover:bg-venus/20 transition-all cursor-pointer"
+                                    onClick={() => handleBeverageToggle(item.id, bev.name)}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={isSelected}
+                                      onChange={() => {}}
+                                      className="w-4 h-4 accent-siam"
+                                    />
+                                    <span className="text-sm text-cocoa-bean flex-1">{bev.name}</span>
+                                    <span className="text-sm text-ferra">+${bev.price.toFixed(2)}</span>
+                                  </div>
+                                )
+                              })}
                             </div>
                           </div>
                         )}
 
-                        {/* Recommended Sides for Pies */}
-                        {activeCategory === "pies" && menuData.pies.recommendedSides && (
+                        {/* Recommended Sides */}
+                        {(menuData as any)[activeCategory]?.recommendedSides && (
                           <div>
-                            <p className="text-xs font-medium text-cocoa-bean mb-1">Add Sides:</p>
-                            <div className="flex flex-wrap gap-1">
-                              {menuData.pies.recommendedSides.map((side) => (
-                                <button
-                                  key={side.name}
-                                  onClick={() => handleSideToggle(item.id, side.name)}
-                                  className={`px-2 py-0.5 rounded text-xs transition-all ${
-                                    (selectedSides[item.id] || []).includes(side.name)
-                                      ? "bg-siam text-white"
-                                      : "bg-white text-cocoa-bean hover:bg-venus/20"
-                                  }`}
-                                >
-                                  {side.name} +${side.price.toFixed(2)}
-                                </button>
-                              ))}
+                            <div className="flex items-center justify-between mb-2">
+                              <p className="text-sm font-semibold text-cocoa-bean">Recommended Sides And Apps</p>
+                              <span className="text-xs text-ferra">(Optional) • Choose up to 4</span>
+                            </div>
+                            <div className="space-y-2">
+                              {(menuData as any)[activeCategory].recommendedSides.map((side: any) => {
+                                const isSelected = (selectedSides[item.id] || []).includes(side.name)
+                                return (
+                                  <div
+                                    key={side.name}
+                                    className="flex items-center gap-3 p-2 bg-white rounded hover:bg-venus/20 transition-all cursor-pointer"
+                                    onClick={() => handleSideToggle(item.id, side.name)}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={isSelected}
+                                      onChange={() => {}}
+                                      className="w-4 h-4 accent-siam"
+                                    />
+                                    <span className="text-sm text-cocoa-bean flex-1">{side.name}</span>
+                                    <span className="text-sm text-ferra">+${side.price.toFixed(2)}</span>
+                                  </div>
+                                )
+                              })}
                             </div>
                           </div>
                         )}
+
+                        {/* Recommended Desserts */}
+                        {(menuData as any)[activeCategory]?.recommendedDesserts && (
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <p className="text-sm font-semibold text-cocoa-bean">Recommended Desserts</p>
+                              <span className="text-xs text-ferra">(Optional) • Choose up to 3</span>
+                            </div>
+                            <div className="space-y-2">
+                              {(menuData as any)[activeCategory].recommendedDesserts.map((dessert: any) => {
+                                const isSelected = (selectedDesserts[item.id] || []).includes(dessert.name)
+                                return (
+                                  <div
+                                    key={dessert.name}
+                                    className="flex items-center gap-3 p-2 bg-white rounded hover:bg-venus/20 transition-all cursor-pointer"
+                                    onClick={() => handleDessertToggle(item.id, dessert.name)}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={isSelected}
+                                      onChange={() => {}}
+                                      className="w-4 h-4 accent-siam"
+                                    />
+                                    <span className="text-sm text-cocoa-bean flex-1">{dessert.name}</span>
+                                    <span className="text-sm text-ferra">+${dessert.price.toFixed(2)}</span>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Preferences / Special Instructions */}
+                        <div>
+                          <p className="text-sm font-semibold text-cocoa-bean mb-2">Preferences</p>
+                          <p className="text-xs text-ferra mb-2">(Optional)</p>
+                          <div className="bg-white rounded-lg p-2">
+                            <button
+                              onClick={() => {
+                                const textarea = document.getElementById(
+                                  `instructions-${item.id}`,
+                                ) as HTMLTextAreaElement
+                                if (textarea) textarea.focus()
+                              }}
+                              className="text-sm text-cocoa-bean hover:text-siam transition-colors flex items-center gap-1"
+                            >
+                              Add Special Instructions
+                              <span className="text-siam">→</span>
+                            </button>
+                            <textarea
+                              id={`instructions-${item.id}`}
+                              value={specialInstructions[item.id] || ""}
+                              onChange={(e) =>
+                                setSpecialInstructions((prev) => ({ ...prev, [item.id]: e.target.value }))
+                              }
+                              placeholder="e.g., extra sauce, well done, etc."
+                              className="w-full mt-2 p-2 text-sm border border-venus/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-siam/20 resize-none"
+                              rows={3}
+                            />
+                          </div>
+                        </div>
                       </div>
                     )}
 
