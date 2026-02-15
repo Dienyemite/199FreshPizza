@@ -36,7 +36,7 @@ export default function PromotionalBanner() {
         <div className="flex justify-center">
           <div className="relative max-w-4xl w-full">
             <img
-              src="/images/pizza-special-banner.png"
+              src="/img/PizzaSpecialBanner.png"
               alt="$1.99 Fresh Pizza Special - 2 slices of pizza & 1 can of soda or water for $5.00"
               className="w-full h-auto rounded-lg shadow-2xl"
             />

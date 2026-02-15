@@ -11,17 +11,37 @@ interface MenuModalProps {
   onClose: () => void
 }
 
-// Function to get appropriate image for each menu item using reliable Unsplash URLs
+// Function to get appropriate image for each menu item - uses local images from img folder where available
 const getItemImage = (itemName: string, category: string) => {
   const imageMap: { [key: string]: string } = {
-    // Pies
-    "Cheese Pie":
-      "https://images.unsplash.com/photo-1747654168933-a0a0c9d78d68?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Hawaiian Pie":
-      "https://images.unsplash.com/photo-1708649360542-db4f0762bd9c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Veggie Pie":
-      "https://images.unsplash.com/photo-1718801594801-feba5ddcb2a4?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Meat Lover Pie": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400&h=300&fit=crop&crop=center",
+    // Pies - using local images from img folder
+    '12" Cheese Pie with Toppings': "/img/18InchCheesePie.webp",
+    '16" Cheese Pie with Half Toppings': "/img/16InchCheesePie.webp",
+    '16" Cheese Pie with Half Veggie': "/img/16InchVeggiePie.webp",
+    '16" Cheese Pie with Half Meat Lover': "/img/18InchMeatLoverPie.webp",
+    '16" Cheese Pie with Toppings': "/img/16InchCheesePie.webp",
+    '18" Cheese Pie with Half Toppings': "/img/18InchCheesePieWithToppings.webp",
+    '18" Cheese Pie with Toppings': "/img/18InchCheesePieWithToppings.webp",
+    '18" Cheese Pie with Half Chicken Toppings': "/img/18InchCheesePie.webp",
+    '18" Cheese Pie with Half Veggie': "/img/18InchVeggiePie.webp",
+    '18" Cheese Pie with Half Meat Lover': "/img/18InchMeatLoverPie.webp",
+    '16" Half Hawaiian Pie': "/img/16InchHawaiianPie.webp",
+    '18" Half Hawaiian Pie': "/img/18InchHawaiianPie.webp",
+    '16" Half Chicken Pie': "/img/16InchCheesePie.webp",
+    '18" Half Chicken Pie': "/img/18InchCheesePie.webp",
+    '16" Half Buffalo Chicken Pie': "/img/16InchCheesePie.webp",
+    '18" Half Buffalo Chicken Pie': "/img/18InchCheesePie.webp",
+    '16" Half BBQ Chicken Pie': "/img/16InchCheesePie.webp",
+    '18" Half BBQ Chicken Pie': "/img/18InchCheesePie.webp",
+    '16" Half Chicken Ranch Pie': "/img/16InchCheesePie.webp",
+    '16" Half Supreme Pie': "/img/16InchCheesePie.webp",
+    '18" Half Supreme Pie': "/img/18InchCheesePie.webp",
+
+    // Generic pie names (fallbacks)
+    "Cheese Pie": "/img/18InchCheesePie.webp",
+    "Hawaiian Pie": "/img/18InchHawaiianPie.webp",
+    "Veggie Pie": "/img/18InchVeggiePie.webp",
+    "Meat Lover Pie": "/img/18InchMeatLoverPie.webp",
     "Chicken Pie":
       "https://images.unsplash.com/photo-1604917869287-3ae73c77e227?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "Buffalo Chicken Pie":
@@ -32,16 +52,14 @@ const getItemImage = (itemName: string, category: string) => {
       "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=400&h=300&fit=crop&crop=center",
     "Supreme Pie":
       "https://images.unsplash.com/photo-1705286324371-d6a6d9519dc2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Shrimp Pesto Pizza":
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop&crop=center",
+    "Pesto Shrimp Pie": "/img/12InchShrimpPestoPie.avif",
 
-    // Slices
-    "Cheese Slice":
+    // Slices - using local images from img folder
+    "Cheese Slice with Toppings":
       "https://images.unsplash.com/photo-1747654168933-a0a0c9d78d68?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "Hawaiian Slice":
       "https://images.unsplash.com/photo-1708649360542-db4f0762bd9c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Veggie Slice":
-      "https://images.unsplash.com/photo-1718801594801-feba5ddcb2a4?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "Veggie Slice": "/img/VeggieSlice.avif",
     "Meat Lover Slice": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400&h=300&fit=crop&crop=center",
     "Chicken Slice":
       "https://images.unsplash.com/photo-1604917869287-3ae73c77e227?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -49,8 +67,9 @@ const getItemImage = (itemName: string, category: string) => {
       "https://images.unsplash.com/photo-1722707758294-743f78629ecd?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "Buffalo Chicken Slice":
       "https://images.unsplash.com/photo-1751026044592-1c395868257a?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Chicken Ranch Slice":
-      "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=400&h=300&fit=crop&crop=center",
+    "Chicken Ranch Slice": "/img/ChickenRanchSlice.webp",
+    "Supreme Slice":
+      "https://images.unsplash.com/photo-1705286324371-d6a6d9519dc2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 
     // Breakfast
     "Butter Croissant": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center",
@@ -63,33 +82,31 @@ const getItemImage = (itemName: string, category: string) => {
     "Coffee (Small)": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop&crop=center",
     "Coffee (Large)": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop&crop=center",
 
-    // Sides
-    "Garlic Knots (3)": "https://images.unsplash.com/photo-1619535860434-ba1d8fa12536?w=400&h=300&fit=crop&crop=center",
-    "6 PC Crispy Chicken Wings":
+    // Sides - using local images from img folder
+    "Garlic Knots": "/img/GarlicKnots.webp",
+    "6 pcs Crispy Chicken Wings with BBQ or Buffalo Sauce":
       "https://images.unsplash.com/photo-1608039755401-742074f0548d?w=400&h=300&fit=crop&crop=center",
-    "12 PC Crispy Chicken Wings":
-      "https://images.unsplash.com/photo-1608039755401-742074f0548d?w=400&h=300&fit=crop&crop=center",
-    "6 PC Chicken Nuggets":
-      "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop&crop=center",
-    "10 PC Chicken Nuggets":
+    "12 pcs Crispy Chicken Wings with BBQ or Buffalo Sauce": "/img/12pcsCrispyChickenWingsWithBBQorBuffaloSauce.webp",
+    "6 pcs Chicken Nuggets": "/img/6pcsChickenNuggets.webp",
+    "10 pcs Chicken Nuggets":
       "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop&crop=center",
 
-    // Specials
-    "2 Slices with 1 Can of Soda or Water":
-      "https://images.unsplash.com/photo-1544029048-b78834e2c277?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "1 Slice, 4 Crispy Wings & 2 Garlic Knots":
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop&crop=center",
-    "Chicken Sandwich Meal":
+    // Specials - using local images from img folder
+    "2 Cheese Slices with 1 Can of Soda or Water": "/img/2CheeseSliceWith1CanSodaOrWater.avif",
+    "1 Cheese Slice, 4 pcs Chicken Wings, 2 pcs Garlic Knots with Can of Soda or Water": "/img/1CheeseSlice4pcsChickenWings2pcsGarlicKnotsWithACanOfSodaOrWater.avif",
+    "Chicken Sandwich Meal with 3 Nuggets & Small Fries, Can of Soda or Water Bottle":
       "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&h=300&fit=crop&crop=center",
-    "Cheeseburger Meal":
+    "Cheeseburger Meal with Small Fries, Can of Soda or Water Bottle":
       "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center",
-    "5 PC Chicken Nuggets Meal":
+    "5 pcs Chicken Nuggets Meal with Small Fries, Can of Soda or Water Bottle":
       "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop&crop=center",
 
     // Beef Patties
     "Beef Patty":
       "https://images.unsplash.com/photo-1587652252980-51fae498d182?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "Beef Patty w/ Cheese":
+      "https://images.unsplash.com/photo-1626111740066-e595bce778f0?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "Beef Patty w/ Toppings":
       "https://images.unsplash.com/photo-1626111740066-e595bce778f0?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 
     // Beverages
@@ -114,16 +131,13 @@ const getItemImage = (itemName: string, category: string) => {
     "Veggie Burger": "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=400&h=300&fit=crop&crop=center",
 
     // Fries
-    "Small Fries": "https://images.unsplash.com/photo-1630384060421-cb20aed0a71c?w=400&h=300&fit=crop&crop=center",
-    "Large Fries": "https://images.unsplash.com/photo-1630384060421-cb20aed0a71c?w=400&h=300&fit=crop&crop=center",
+    "Small fries": "https://images.unsplash.com/photo-1630384060421-cb20aed0a71c?w=400&h=300&fit=crop&crop=center",
+    "Large fries": "https://images.unsplash.com/photo-1630384060421-cb20aed0a71c?w=400&h=300&fit=crop&crop=center",
 
-    // Dessert - Chocolate Pizzas
-    "Dubai Chocolate Pizza":
-      "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400&h=300&fit=crop&crop=center",
-    "S'mores Chocolate Pizza":
-      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop&crop=center",
-    "Strawberry Chocolate Pizza":
-      "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&crop=center",
+    // Dessert - Chocolate Pizzas - using local images from img folder
+    "Dubai Chocolate Pizza": "/img/12InchDubaiChocolatePie.webp",
+    "S'mores Chocolate Pizza": "/img/12InchSmoresPie.webp",
+    "Strawberry Chocolate Pizza": "/img/12InchStrawberryChocolatePie.avif",
 
     // Ice Cream Cones
     "Ice Cream Cone": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&h=300&fit=crop&crop=center",
