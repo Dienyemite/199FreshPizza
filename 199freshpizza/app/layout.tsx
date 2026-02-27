@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import Script from "next/script"
+import { Analytics } from '@vercel/analytics/next'
 import "./globals.css"
 import { CartProvider } from "./context/cart-context"
 
@@ -146,6 +147,7 @@ export default function RootLayout({
         </Script>
 
         <CartProvider>{children}</CartProvider>
+        <Analytics />
       </body>
     </html>
   )
