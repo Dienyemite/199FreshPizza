@@ -163,7 +163,7 @@ export default function Contact() {
                     className="w-full min-h-[120px] px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam resize-vertical"
                   ></textarea>
                 </div>
-                <Button className="w-full bg-siam hover:bg-black-olive text-albescent-white">Send Message</Button>
+                <Button className="w-full bg-siam hover:bg-black-olive text-white">Send Message</Button>
               </CardContent>
             </Card>
           </div>

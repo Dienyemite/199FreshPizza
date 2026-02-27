@@ -36,9 +36,12 @@ export default function PromotionalBanner() {
         <div className="flex justify-center">
           <div className="relative max-w-4xl w-full">
             <img
-              src="/img/PizzaSpecialBanner.png"
+              src="/img/PizzaSpecialBanner.webp"
               alt="$1.99 Fresh Pizza Special - 2 slices of pizza & 1 can of soda or water for $5.00"
               className="w-full h-auto rounded-lg shadow-2xl"
+              width={896}
+              height={382}
+              fetchPriority="high"
             />
             {/* Optional overlay for better integration */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-transparent rounded-lg"></div>

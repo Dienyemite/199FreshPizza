@@ -148,10 +148,12 @@ export default function Hero() {
                     src={menuImages[currentImageIndex] || "/placeholder.svg"}
                     alt={menuItemNames[currentImageIndex] || "Delicious Food"}
                     className="w-full h-full object-cover transition-all duration-500 ease-in-out"
+                    width={320}
+                    height={320}
                     onError={(e) => {
                       const target = e.currentTarget
                       target.onerror = null
-                      target.src = "/images/buffalo-chicken-pizza.jpg"
+                      target.src = "/img/ChickenRanchSlice.webp"
                     }}
                   />
 
@@ -179,18 +181,22 @@ export default function Hero() {
                 </button>
 
                 {/* Dots Indicator */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-1 z-10">
                   {menuImages.slice(0, 5).map((_, index) => (
                     <button
                       key={index}
                       onClick={() => goToSlide(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                        index === currentImageIndex % 5
-                          ? "bg-albescent-white"
-                          : "bg-albescent-white/50 hover:bg-albescent-white/75"
-                      }`}
+                      className="w-6 h-6 flex items-center justify-center rounded-full transition-all duration-200"
                       aria-label={`Go to slide ${index + 1}`}
-                    />
+                    >
+                      <span
+                        className={`w-2 h-2 rounded-full transition-all duration-200 block ${
+                          index === currentImageIndex % 5
+                            ? "bg-albescent-white"
+                            : "bg-albescent-white/50 hover:bg-albescent-white/75"
+                        }`}
+                      />
+                    </button>
                   ))}
                 </div>
 

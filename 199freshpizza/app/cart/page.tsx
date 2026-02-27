@@ -203,7 +203,7 @@ export default function CartPage() {
                         onError={(e) => {
                           const target = e.currentTarget
                           target.onerror = null // prevent infinite fallback loop
-                          target.src = "/images/buffalo-chicken-pizza.jpg"
+                          target.src = "/img/ChickenRanchSlice.webp"
                         }}
                       />
                       <div className="flex-1">

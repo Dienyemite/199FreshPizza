@@ -26,10 +26,10 @@ export default function About() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-cocoa-bean mb-6">About $1.99 FRESH PIZZA</h2>
-            <p className="text-lg text-ferra mb-6 leading-relaxed">
+            <p className="text-lg text-cocoa-bean mb-6 leading-relaxed">
               $1.99 FRESH PIZZA started with the goal of providing the Lyndhurst neighborhood with delicious, affordable and fresh pizza. It is our guiding principle, and one that which is felt through every slice.
             </p>
-            <p className="text-lg text-ferra mb-8 leading-relaxed">
+            <p className="text-lg text-cocoa-bean mb-8 leading-relaxed">
               We believe in using only the freshest ingredients, from our hand-tossed dough made daily to our signature
               sauce recipe. Every pizza tells a story of quality, craft and love.
             </p>
@@ -56,17 +56,33 @@ export default function About() {
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
               <img
-                src="https://images.unsplash.com/photo-1747654168933-a0a0c9d78d68?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://images.unsplash.com/photo-1747654168933-a0a0c9d78d68?q=80&w=400&auto=format&fit=crop"
                 alt="Pizza making process"
                 className="rounded-lg shadow-lg"
+                width={400}
+                height={300}
               />
               <img
-                src="https://images.unsplash.com/photo-1718801594801-feba5ddcb2a4?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://images.unsplash.com/photo-1718801594801-feba5ddcb2a4?q=80&w=400&auto=format&fit=crop"
                 alt="Fresh ingredients"
                 className="rounded-lg shadow-lg mt-8"
+                width={400}
+                height={300}
               />
-              <img src="/images/buffalo-chicken-pizza.jpg" alt="Pizza oven" className="rounded-lg shadow-lg -mt-8" />
-              <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=400&h=300&fit=crop&crop=center" />
+              <img
+                src="/img/ChickenRanchSlice.webp"
+                alt="Pizza oven"
+                className="rounded-lg shadow-lg -mt-8"
+                width={400}
+                height={300}
+              />
+              <img
+                src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=400&h=300&fit=crop&crop=center"
+                alt="Our restaurant interior"
+                className="rounded-lg shadow-lg"
+                width={400}
+                height={300}
+              />
             </div>
           </div>
         </div>

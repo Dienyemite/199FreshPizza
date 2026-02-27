@@ -137,8 +137,8 @@ export default function Menu() {
                     <Button
                       className={`transition-all duration-300 ${
                         addedItems.has(item.id)
-                          ? "bg-siam hover:bg-siam text-albescent-white"
-                          : "bg-siam hover:bg-black-olive text-albescent-white"
+                          ? "bg-siam hover:bg-siam text-white"
+                          : "bg-siam hover:bg-black-olive text-white"
                       }`}
                       onClick={() => handleAddToCart(item)}
                     >
@@ -164,7 +164,7 @@ export default function Menu() {
             <Button
               size="lg"
               variant="outline"
-              className="border-siam text-siam hover:bg-siam hover:text-albescent-white bg-transparent"
+              className="border-siam text-black-olive hover:bg-siam hover:text-white bg-transparent"
               onClick={() => setIsMenuModalOpen(true)}
             >
               View Full Menu

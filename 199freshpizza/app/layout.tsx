@@ -48,7 +48,7 @@ export const metadata: Metadata = {
       "Order fresh, delicious pizza from $1.99 FRESH PIZZA in Lyndhurst, NJ. Fast delivery, authentic flavors, and unbeatable prices.",
     images: [
       {
-        url: "/images/buffalo-chicken-pizza.jpg",
+        url: "/img/18InchCheesePie.webp",
         width: 1200,
         height: 630,
         alt: "$1.99 FRESH PIZZA - Delicious Pizza",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: "$1.99 FRESH PIZZA - Best Pizza in Lyndhurst, NJ",
     description:
       "Order fresh, delicious pizza from $1.99 FRESH PIZZA in Lyndhurst, NJ. Fast delivery, authentic flavors, and unbeatable prices.",
-    images: ["/images/buffalo-chicken-pizza.jpg"],
+    images: ["/img/18InchCheesePie.webp"],
   },
   alternates: {
     canonical: "https://www.199freshpizza.com",
@@ -82,7 +82,7 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
   name: "$1.99 FRESH PIZZA",
-  image: "https://www.199freshpizza.com/images/buffalo-chicken-pizza.jpg",
+  image: "https://www.199freshpizza.com/img/18InchCheesePie.webp",
   description:
     "Fresh, delicious pizza restaurant in Lyndhurst, NJ offering delivery and pickup with unbeatable prices.",
   address: {
@@ -126,6 +126,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`scroll-smooth ${interFont.variable} ${monoFont.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+      </head>
       <body>
         <Script
           id="structured-data"
