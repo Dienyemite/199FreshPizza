@@ -30,9 +30,8 @@ export default function CartPage() {
 
   // Safe calculation with fallbacks and validation
   const safeTotal = typeof state?.total === "number" && !isNaN(state.total) ? state.total : 0
-  const tax = safeTotal * 0.08875 // NJ tax rate
-  const deliveryFee = safeTotal > 25 ? 0 : 2.99
-  const finalTotal = safeTotal + tax + deliveryFee
+  const tax = safeTotal * 0.06625 // NJ state sales tax rate
+  const finalTotal = safeTotal + tax
 
   const handleCheckout = () => {
     // Validate cart before proceeding
@@ -261,14 +260,9 @@ export default function CartPage() {
                   <span>${safeTotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-ferra">
-                  <span>Tax</span>
+                  <span>Tax (6.625%)</span>
                   <span>${tax.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-ferra">
-                  <span>Delivery Fee</span>
-                  <span>{deliveryFee === 0 ? "FREE" : `$${deliveryFee.toFixed(2)}`}</span>
-                </div>
-                {deliveryFee === 0 && <p className="text-xs text-siam">🎉 Free delivery on orders over $25!</p>}
                 <hr className="border-venus/30" />
                 <div className="flex justify-between text-lg font-bold text-cocoa-bean">
                   <span>Total</span>

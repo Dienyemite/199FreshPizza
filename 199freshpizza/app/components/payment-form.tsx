@@ -310,15 +310,11 @@ function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentForm
               <h4 className="font-semibold text-cocoa-bean mb-2">Order Summary</h4>
               <div className="flex justify-between text-sm text-ferra mb-1">
                 <span>{orderDetails?.itemCount || 0} items</span>
-                <span>${((amount || 0) - (amount || 0) * 0.08875 - ((amount || 0) > 25 ? 0 : 2.99)).toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-sm text-ferra mb-1">
-                <span>Tax</span>
-                <span>${((amount || 0) * 0.08875).toFixed(2)}</span>
+                <span>${((amount || 0) / 1.06625).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm text-ferra mb-2">
-                <span>Delivery</span>
-                <span>{(amount || 0) > 25 ? "FREE" : "$2.99"}</span>
+                <span>Tax (6.625%)</span>
+                <span>${((amount || 0) - (amount || 0) / 1.06625).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-lg font-bold text-cocoa-bean border-t border-venus/30 pt-2">
                 <span>Total</span>
