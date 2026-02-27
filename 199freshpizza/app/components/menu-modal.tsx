@@ -56,11 +56,11 @@ const getItemImage = (itemName: string, category: string) => {
 
     // Slices - using local images from img folder
     "Cheese Slice with Toppings":
-      "https://images.unsplash.com/photo-1747654168933-a0a0c9d78d68?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/img/CheeseSlice.jpg",
     "Hawaiian Slice":
       "https://images.unsplash.com/photo-1708649360542-db4f0762bd9c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "Veggie Slice": "/img/VeggieSlice.avif",
-    "Meat Lover Slice": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400&h=300&fit=crop&crop=center",
+    "Meat Lover Slice": "/img/MeatLoverSlice.jpg",
     "Chicken Slice":
       "https://images.unsplash.com/photo-1604917869287-3ae73c77e227?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "BBQ Chicken Slice":
@@ -68,19 +68,7 @@ const getItemImage = (itemName: string, category: string) => {
     "Buffalo Chicken Slice":
       "https://images.unsplash.com/photo-1751026044592-1c395868257a?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "Chicken Ranch Slice": "/img/ChickenRanchSlice.webp",
-    "Supreme Slice":
-      "https://images.unsplash.com/photo-1705286324371-d6a6d9519dc2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-
-    // Breakfast
-    "Butter Croissant": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center",
-    "Egg & Cheese Croissant":
-      "https://images.unsplash.com/photo-1600628421055-4d30de868b8f?w=400&h=300&fit=crop&crop=center",
-    "Bagel w/Cream Cheese":
-      "https://images.unsplash.com/photo-1585445490387-f47934b73b54?w=400&h=300&fit=crop&crop=center",
-    "Egg & Cheese Bagel":
-      "https://images.unsplash.com/photo-1592767039374-9a2a7f0dcb70?w=400&h=300&fit=crop&crop=center",
-    "Coffee (Small)": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop&crop=center",
-    "Coffee (Large)": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop&crop=center",
+    "Supreme Slice": "/img/SupremeSlice.jpg",
 
     // Sides - using local images from img folder
     "Garlic Knots": "/img/GarlicKnots.webp",
@@ -103,11 +91,11 @@ const getItemImage = (itemName: string, category: string) => {
 
     // Beef Patties
     "Beef Patty":
-      "https://images.unsplash.com/photo-1587652252980-51fae498d182?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/img/BeefPatty.jpg",
     "Beef Patty w/ Cheese":
-      "https://images.unsplash.com/photo-1626111740066-e595bce778f0?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/img/BeefPattyWToppings.jpg",
     "Beef Patty w/ Toppings":
-      "https://images.unsplash.com/photo-1626111740066-e595bce778f0?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/img/BeefPattyWToppings.jpg",
 
     // Beverages
     "Canned Soda":
