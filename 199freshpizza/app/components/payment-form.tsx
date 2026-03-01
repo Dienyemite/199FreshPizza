@@ -3,18 +3,29 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { loadStripe } from "@stripe/stripe-js"
-import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
+import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, CreditCard, Shield } from "lucide-react"
 
-// Load Stripe with error handling
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "")
+
+const appearance = {
+  theme: "stripe" as const,
+  variables: {
+    colorPrimary: "#657154",
+    colorBackground: "#ffffff",
+    colorText: "#4a2427",
+    colorDanger: "#df1b41",
+    fontFamily: "system-ui, sans-serif",
+    borderRadius: "6px",
+  },
+}
 
 interface PaymentFormProps {
   amount: number
-  onSuccess: () => void
+  onSuccess: (email: string) => void
   onCancel: () => void
   orderDetails: {
     items: any[]
@@ -22,98 +33,31 @@ interface PaymentFormProps {
   }
 }
 
-const CARD_ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      fontSize: "16px",
-      color: "#424770",
-      "::placeholder": {
-        color: "#aab7c4",
-      },
-    },
-    invalid: {
-      color: "#9e2146",
-    },
-  },
-}
-
 function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentFormProps) {
   const stripe = useStripe()
   const elements = useElements()
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [clientSecret, setClientSecret] = useState<string>("")
+  const [email, setEmail] = useState("")
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
-    email: "",
     phone: "",
     address: "",
     city: "",
     zipCode: "",
   })
 
-  // Create payment intent when component mounts
-  useEffect(() => {
-    const createPaymentIntent = async () => {
-      try {
-        if (!amount || amount <= 0) {
-          setError("Invalid order amount")
-          return
-        }
-
-        const response = await fetch("/api/create-payment-intent", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            amount,
-            metadata: {
-              itemCount: orderDetails?.itemCount || 0,
-              orderType: "pizza_delivery",
-            },
-          }),
-        })
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const data = await response.json()
-
-        if (data.error) {
-          setError(data.error)
-          return
-        }
-
-        if (data.clientSecret) {
-          setClientSecret(data.clientSecret)
-        } else {
-          setError("Failed to initialize payment")
-        }
-      } catch (err) {
-        console.error("Payment intent creation error:", err)
-        setError("Failed to initialize payment. Please try again.")
-      }
-    }
-
-    if (amount > 0) {
-      createPaymentIntent()
-    }
-  }, [amount, orderDetails])
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
-    if (!stripe || !elements || !clientSecret) {
+    if (!stripe || !elements) {
       setError("Payment system not ready. Please try again.")
       return
     }
 
-    // Validate required fields
     if (
       !customerInfo.name ||
-      !customerInfo.email ||
+      !email ||
       !customerInfo.phone ||
       !customerInfo.address ||
       !customerInfo.city ||
@@ -127,39 +71,35 @@ function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentForm
     setError(null)
 
     try {
-      const cardElement = elements.getElement(CardElement)
-      if (!cardElement) {
-        setError("Card element not found")
-        setIsProcessing(false)
-        return
-      }
-
-      // Confirm payment
-      const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: customerInfo.name || "",
-            email: customerInfo.email || "",
-            phone: customerInfo.phone || "",
-            address: {
-              line1: customerInfo.address || "",
-              city: customerInfo.city || "",
-              postal_code: customerInfo.zipCode || "",
-              country: "US",
+      const { error: stripeError, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/cart`,
+          receipt_email: email,
+          payment_method_data: {
+            billing_details: {
+              name: customerInfo.name,
+              email: email,
+              phone: customerInfo.phone,
+              address: {
+                line1: customerInfo.address,
+                city: customerInfo.city,
+                postal_code: customerInfo.zipCode,
+                country: "US",
+              },
             },
           },
         },
+        redirect: "if_required",
       })
 
       if (stripeError) {
         setError(stripeError.message || "Payment failed")
         setIsProcessing(false)
       } else if (paymentIntent?.status === "succeeded") {
-        // Payment successful
-        onSuccess()
+        onSuccess(email)
       } else {
-        setError("Payment was not completed")
+        setError("Payment was not completed. Please try again.")
         setIsProcessing(false)
       }
     } catch (err) {
@@ -171,13 +111,9 @@ function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentForm
 
   const handleInputChange = (field: string, value: string) => {
     setCustomerInfo((prev) => ({ ...prev, [field]: value }))
-    // Clear error when user starts typing
-    if (error) {
-      setError(null)
-    }
+    if (error) setError(null)
   }
 
-  // Show loading state while Stripe is loading
   if (!stripe || !elements) {
     return (
       <div className="max-w-2xl mx-auto">
@@ -228,8 +164,8 @@ function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentForm
                   <input
                     type="email"
                     required
-                    value={customerInfo.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); if (error) setError(null) }}
                     className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
                     placeholder="john@example.com"
                   />
@@ -281,27 +217,19 @@ function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentForm
               </div>
             </div>
 
-            {/* Payment Information */}
+            {/* Stripe Payment Element */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-cocoa-bean">Payment Details</h3>
-              <div className="p-4 border border-venus/30 rounded-md bg-gray-50">
-                <CardElement options={CARD_ELEMENT_OPTIONS} />
+              <div className="p-4 border border-venus/30 rounded-md bg-white">
+                <PaymentElement
+                  options={{
+                    layout: "tabs",
+                  }}
+                />
               </div>
               <div className="flex items-center space-x-2 text-sm text-ferra">
                 <Shield className="w-4 h-4" />
                 <span>Your payment information is secure and encrypted</span>
-              </div>
-            </div>
-
-            {/* Accepted Cards */}
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-cocoa-bean">We Accept:</p>
-              <div className="flex flex-wrap gap-2 text-xs">
-                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">Visa</span>
-                <span className="px-2 py-1 bg-red-100 text-red-800 rounded">Mastercard</span>
-                <span className="px-2 py-1 bg-orange-100 text-orange-800 rounded">Discover</span>
-                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">American Express</span>
-                <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded">Debit Cards</span>
               </div>
             </div>
 
@@ -335,8 +263,8 @@ function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentForm
               </Button>
               <Button
                 type="submit"
-                disabled={!stripe || isProcessing || !clientSecret}
-                className="flex-1 bg-siam hover:bg-black-olive text-albescent-white"
+                disabled={!stripe || isProcessing}
+                className="flex-1 bg-siam hover:bg-black-olive text-white"
               >
                 {isProcessing ? (
                   <>
@@ -359,7 +287,54 @@ function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentForm
 }
 
 export default function PaymentForm(props: PaymentFormProps) {
-  // Add error boundary for Stripe Elements
+  const [clientSecret, setClientSecret] = useState("")
+  const [initError, setInitError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!props.amount || props.amount <= 0) return
+
+    const createIntent = async () => {
+      try {
+        const itemNames =
+          props.orderDetails?.items
+            ?.map((item: any) => `${item.name} x${item.quantity}`)
+            .join(", ")
+            .slice(0, 500) || ""
+
+        const response = await fetch("/api/create-payment-intent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: props.amount,
+            metadata: {
+              itemCount: props.orderDetails?.itemCount || 0,
+              items: itemNames,
+              orderType: "pizza_order",
+              restaurant: "$1.99 FRESH PIZZA",
+              location: "Lyndhurst, NJ",
+            },
+          }),
+        })
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+
+        const data = await response.json()
+        if (data.error) {
+          setInitError(data.error)
+        } else if (data.clientSecret) {
+          setClientSecret(data.clientSecret)
+        } else {
+          setInitError("Failed to initialize payment")
+        }
+      } catch (err) {
+        console.error("Payment intent creation error:", err)
+        setInitError("Failed to initialize payment. Please try again.")
+      }
+    }
+
+    createIntent()
+  }, [props.amount, props.orderDetails])
+
   if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
     return (
       <div className="max-w-2xl mx-auto">
@@ -376,8 +351,35 @@ export default function PaymentForm(props: PaymentFormProps) {
     )
   }
 
+  if (initError) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <Card className="border-venus/20">
+          <CardContent className="p-8 text-center">
+            <Alert className="border-red-200 bg-red-50">
+              <AlertDescription className="text-red-800">{initError}</AlertDescription>
+            </Alert>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
+  if (!clientSecret) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <Card className="border-venus/20">
+          <CardContent className="p-8 text-center">
+            <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-siam" />
+            <p className="text-ferra">Preparing your checkout...</p>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
   return (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
       <CheckoutForm {...props} />
     </Elements>
   )

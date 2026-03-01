@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // Convert to cents
       currency,
+      description: `Order from $1.99 FRESH PIZZA - Lyndhurst, NJ`,
       metadata: {
         restaurant: "$1.99 FRESH PIZZA",
         location: "Lyndhurst, NJ",

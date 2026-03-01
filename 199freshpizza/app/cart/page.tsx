@@ -48,7 +48,7 @@ export default function CartPage() {
     setShowPayment(true)
   }
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = (customerEmail: string) => {
     try {
       // Generate order number
       const orderNumber = `PZ${Date.now().toString().slice(-6)}`
@@ -60,7 +60,7 @@ export default function CartPage() {
       setOrderDetails({
         orderNumber,
         amount: finalTotal,
-        customerEmail: "customer@example.com", // This would come from the form
+        customerEmail,
         estimatedDelivery,
       })
 
