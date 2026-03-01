@@ -3,7 +3,7 @@
 import { useCart } from "../context/cart-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag } from "lucide-react"
+import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 import dynamic from "next/dynamic"
@@ -25,6 +25,7 @@ const PaymentForm = dynamic(() => import("../components/payment-form"), {
 export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart()
   const [showPayment, setShowPayment] = useState(false)
+  const [showCheckoutOptions, setShowCheckoutOptions] = useState(false)
   const [paymentSuccess, setPaymentSuccess] = useState(false)
   const [orderDetails, setOrderDetails] = useState<any>(null)
 
@@ -45,7 +46,7 @@ export default function CartPage() {
       return
     }
 
-    setShowPayment(true)
+    setShowCheckoutOptions(true)
   }
 
   const handlePaymentSuccess = (customerEmail: string) => {
@@ -76,11 +77,120 @@ export default function CartPage() {
 
   const handlePaymentCancel = () => {
     setShowPayment(false)
+    setShowCheckoutOptions(true)
   }
 
   // Show payment success page
   if (paymentSuccess && orderDetails) {
     return <PaymentSuccess {...orderDetails} />
+  }
+
+  // Show checkout method selection
+  if (showCheckoutOptions && !showPayment) {
+    const platforms = [
+      {
+        id: "doordash",
+        name: "DoorDash",
+        emoji: "🚗",
+        bg: "bg-red-500 hover:bg-red-600",
+        fee: "$2.99",
+        time: "25–35 min",
+        url: "https://www.doordash.com/store/$1.99-fresh-pizza-lyndhurst-32783939/73652746/?cursor=eyJzZWFyY2hfaXRlbV9jYXJvdXNlbF9jdXJzb3IiOnsicXVlcnkiOiIkMS45OSBGcmVzaCBQaXp6YSIsIml0ZW1faWRzIjpbXSwic2VhcmNoX3Rlcm0iOiIxOTkgZnJlc2ggcGl6emEiLCJ2ZXJ0aWNhbF9pZCI6LTk5OSwidmVydGljYWxfbmFtZSI6ImFsbCIsInF1ZXJ5X2ludGVudCI6IlNUT1JFX1JYIn0sInN0b3JlX3ByaW1hcnlfdmVydGljYWxfaWRzIjpbMSw0LDEwMDMzM119&pickup=false",
+      },
+      {
+        id: "grubhub",
+        name: "Grubhub",
+        emoji: "🥡",
+        bg: "bg-orange-500 hover:bg-orange-600",
+        fee: "$3.49",
+        time: "30–40 min",
+        url: "https://www.grubhub.com/restaurant/199-fresh-pizza-341-ridge-rd-lyndhurst/11840792",
+      },
+      {
+        id: "seamless",
+        name: "Seamless",
+        emoji: "🍽️",
+        bg: "bg-green-600 hover:bg-green-700",
+        fee: "$1.99",
+        time: "20–30 min",
+        url: "https://www.seamless.com/menu/199-fresh-pizza-341-ridge-rd-lyndhurst/11840792?utm_source=google&utm_medium=organic&utm_campaign=place-action-link&pickup=true&rwg_token=ACgRB3faUrhiKxwYYTh4SoOKIKwVFGCg4sZj2MLDstwIFQuoCVtP5UV3KFVWxwOI85VS_mUJRrCrvlAvJLt-j0NAHIx0fYCg7A%3D%3D",
+      },
+    ]
+
+    return (
+      <div className="min-h-screen bg-albescent-white py-8">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <div className="flex items-center space-x-4 mb-8">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowCheckoutOptions(false)}
+              className="text-ferra hover:text-cocoa-bean hover:bg-white"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Cart
+            </Button>
+            <h1 className="text-3xl font-bold text-cocoa-bean">Checkout</h1>
+          </div>
+
+          {/* Order total reminder */}
+          <div className="bg-white rounded-lg border border-venus/20 p-4 mb-6 flex justify-between items-center">
+            <span className="text-ferra">{state?.itemCount || 0} items</span>
+            <span className="text-xl font-bold text-cocoa-bean">${finalTotal.toFixed(2)}</span>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-cocoa-bean">How would you like to order?</h2>
+
+            {/* Website checkout — primary option */}
+            <button
+              onClick={() => { setShowCheckoutOptions(false); setShowPayment(true) }}
+              className="w-full bg-siam hover:bg-black-olive text-white rounded-lg p-5 text-left transition-colors flex items-center justify-between"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl">
+                  💳
+                </div>
+                <div>
+                  <p className="font-bold text-lg">Pay on Website</p>
+                  <p className="text-white/80 text-sm">Secure checkout · No delivery fee</p>
+                </div>
+              </div>
+              <span className="text-white/60 text-sm font-medium">Recommended</span>
+            </button>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 py-1">
+              <hr className="flex-1 border-venus/30" />
+              <span className="text-sm text-ferra">or order through a delivery app</span>
+              <hr className="flex-1 border-venus/30" />
+            </div>
+
+            {/* Third-party platforms */}
+            {platforms.map((platform) => (
+              <a
+                key={platform.id}
+                href={platform.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full ${platform.bg} text-white rounded-lg p-5 flex items-center justify-between transition-colors block`}
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl">
+                    {platform.emoji}
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg">{platform.name}</p>
+                    <p className="text-white/80 text-sm">{platform.time} · {platform.fee} delivery fee</p>
+                  </div>
+                </div>
+                <ExternalLink className="w-5 h-5 text-white/70 flex-shrink-0" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   }
 
   // Show payment form
