@@ -96,11 +96,11 @@ export default function Footer() {
                 Lyndhurst, NJ 07071
               </p>
               <p className="text-albescent-white">Phone: (201)-256-3630</p>
-              <p className="text-albescent-white">Email: orders@hrbpizzeria.com</p>
+              <p className="text-albescent-white">Email: info@1.99freshpizza.com</p>
               <p className="text-albescent-white">
-                Hours: Mon-Thu 11AM-11PM
+                Hours: Mon-Fri 11AM-9PM
                 <br />
-                Fri-Sun 11AM-12AM
+                Sat: 11AM-10PM, Sun: 1PM-9PM
               </p>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function Footer() {
 
         <div className="border-t border-ferra mt-12 pt-8 text-center">
           <p className="text-albescent-white">
-            © 2025 $1.99 FRESH PIZZA. All rights reserved. | Privacy Policy | Terms of Service
+            © 2026 $1.99 FRESH PIZZA. All rights reserved. | Privacy Policy | Terms of Service
           </p>
         </div>
       </div>
