@@ -13,8 +13,7 @@ const mostOrderedItems = [
     name: "2 Cheese Slice with 1 Can of Soda or Water",
     description: "Two slices of cheese pizza served with a choice of can soda or water.",
     price: 5.0,
-    image:
-      "https://images.unsplash.com/photo-1544029048-b78834e2c277?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/img/2SlicesWith1Drink.jpg",
     rating: 5.0,
     popular: true,
   },
@@ -23,8 +22,7 @@ const mostOrderedItems = [
     name: "Beef Patty",
     description: "Jamaican Beef Patty",
     price: 3.5,
-    image:
-      "https://images.unsplash.com/photo-1587652252980-51fae498d182?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/img/BeefPatty.jpg",
     rating: 4.3,
     popular: false,
   },
@@ -34,8 +32,7 @@ const mostOrderedItems = [
     description:
       "Extra Cheese, Beef Pepperoni, Beef Sausage, Ham, Mushroom, Black Olive, Green pepper, Pineapple or Jalapeños.",
     price: 1.99,
-    image:
-      "https://images.unsplash.com/photo-1747654168933-a0a0c9d78d68?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/img/Pepperoni&CheeseSlice.jpg",
     rating: 4.5,
     popular: true,
   },
@@ -45,8 +42,7 @@ const mostOrderedItems = [
     description:
       "Extra Cheese, Beef Pepperoni, Beef Sausage, Ham, Mushroom, Black Olive, Green Pepper, Pineapple, Jalapeño.",
     price: 14.0,
-    image:
-      "https://images.unsplash.com/photo-1705286324371-d6a6d9519dc2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/img/HalfPepperoniHalfSausagePie.jpg",
     rating: 4.9,
     popular: true,
   },
@@ -55,8 +51,7 @@ const mostOrderedItems = [
     name: "BBQ Chicken Slice",
     description: "Grilled chicken, bbq sauce, red onions, and cheddar cheese on a pizza slice.",
     price: 3.75,
-    image:
-      "https://images.unsplash.com/photo-1722707758294-743f78629ecd?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/img/BBQchickenPie.jpg",
     rating: 4.8,
     popular: true,
   },

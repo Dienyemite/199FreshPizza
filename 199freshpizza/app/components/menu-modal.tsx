@@ -42,52 +42,37 @@ const getItemImage = (itemName: string, category: string) => {
     "Hawaiian Pie": "/img/18InchHawaiianPie.webp",
     "Veggie Pie": "/img/18InchVeggiePie.webp",
     "Meat Lover Pie": "/img/18InchMeatLoverPie.webp",
-    "Chicken Pie":
-      "https://images.unsplash.com/photo-1604917869287-3ae73c77e227?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Buffalo Chicken Pie":
-      "https://images.unsplash.com/photo-1751026044592-1c395868257a?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "BBQ Chicken Pie":
-      "https://images.unsplash.com/photo-1722707758294-743f78629ecd?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Chicken Ranch Pie":
-      "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=400&h=300&fit=crop&crop=center",
-    "Supreme Pie":
-      "https://images.unsplash.com/photo-1705286324371-d6a6d9519dc2?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "Chicken Pie": "/img/BBQchickenPie.jpg",
+    "Buffalo Chicken Pie": "/img/BBQchickenPie.jpg",
+    "BBQ Chicken Pie": "/img/BBQchickenPie.jpg",
+    "Chicken Ranch Pie": "/img/ChickenRanchSlice.webp",
+    "Supreme Pie": "/img/HalfPepperoniHalfSausagePie.jpg",
     "Pesto Shrimp Pie": "/img/12InchShrimpPestoPie.avif",
 
     // Slices - using local images from img folder
-    "Cheese Slice with Toppings":
-      "/img/CheeseSlice.jpg",
-    "Hawaiian Slice":
-      "https://images.unsplash.com/photo-1708649360542-db4f0762bd9c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "Cheese Slice with Toppings": "/img/Pepperoni&CheeseSlice.jpg",
+    "Hawaiian Slice": "/img/HawaiianSlice.jpg",
     "Veggie Slice": "/img/VeggieSlice.avif",
     "Meat Lover Slice": "/img/MeatLoverSlice.jpg",
-    "Chicken Slice":
-      "https://images.unsplash.com/photo-1604917869287-3ae73c77e227?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "BBQ Chicken Slice":
-      "https://images.unsplash.com/photo-1722707758294-743f78629ecd?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "Buffalo Chicken Slice":
-      "https://images.unsplash.com/photo-1751026044592-1c395868257a?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "Chicken Slice": "/img/ChickenRanchSlice.webp",
+    "BBQ Chicken Slice": "/img/BBQchickenPie.jpg",
+    "Buffalo Chicken Slice": "/img/BBQchickenPie.jpg",
     "Chicken Ranch Slice": "/img/ChickenRanchSlice.webp",
     "Supreme Slice": "/img/SupremeSlice.jpg",
 
     // Sides - using local images from img folder
     "Garlic Knots": "/img/GarlicKnots.webp",
-    "6 pcs Crispy Chicken Wings with BBQ or Buffalo Sauce":
-      "https://images.unsplash.com/photo-1608039755401-742074f0548d?w=400&h=300&fit=crop&crop=center",
+    "6 pcs Crispy Chicken Wings with BBQ or Buffalo Sauce": "/img/5pcsWingsMeal.jpg",
     "12 pcs Crispy Chicken Wings with BBQ or Buffalo Sauce": "/img/12pcsCrispyChickenWingsWithBBQorBuffaloSauce.webp",
     "6 pcs Chicken Nuggets": "/img/6pcsChickenNuggets.webp",
-    "10 pcs Chicken Nuggets":
-      "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop&crop=center",
+    "10 pcs Chicken Nuggets": "/img/6pcsChickenNuggets.webp",
 
     // Specials - using local images from img folder
     "2 Cheese Slices with 1 Can of Soda or Water": "/img/2CheeseSliceWith1CanSodaOrWater.avif",
     "1 Cheese Slice, 4 pcs Chicken Wings, 2 pcs Garlic Knots with Can of Soda or Water": "/img/1CheeseSlice4pcsChickenWings2pcsGarlicKnotsWithACanOfSodaOrWater.avif",
-    "Chicken Sandwich Meal with 3 Nuggets & Small Fries, Can of Soda or Water Bottle":
-      "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&h=300&fit=crop&crop=center",
-    "Cheeseburger Meal with Small Fries, Can of Soda or Water Bottle":
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center",
-    "5 pcs Chicken Nuggets Meal with Small Fries, Can of Soda or Water Bottle":
-      "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop&crop=center",
+    "Chicken Sandwich Meal with 3 Nuggets & Small Fries, Can of Soda or Water Bottle": "/img/ChickenSandwichMeal.jpg",
+    "Cheeseburger Meal with Small Fries, Can of Soda or Water Bottle": "/img/CheeseBurgerMeal.jpg",
+    "5 pcs Chicken Nuggets Meal with Small Fries, Can of Soda or Water Bottle": "/img/5pcsWingsMeal.jpg",
 
     // Beef Patties
     "Beef Patty":
@@ -109,18 +94,17 @@ const getItemImage = (itemName: string, category: string) => {
     "Small Red Bull": "https://target.scene7.com/is/image/Target/GUEST_da6385d3-b2f1-4fc2-ac0b-4fdcc0779096",
 
     // Hot Dog Specials
-    "Hot Dog": "https://images.unsplash.com/photo-1612392062126-2f640e8e5890?w=400&h=300&fit=crop&crop=center",
-    "Spicy Hot Dog w/Jalapeno BBQ Sauce":
-      "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=400&h=300&fit=crop&crop=center",
+    "Hot Dog": "/img/Hotdog.jpg",
+    "Spicy Hot Dog w/Jalapeno BBQ Sauce": "/img/HotdogWithJalapenoBBQsauce.jpg",
 
     // Sandwiches & Burgers
-    "Chicken Sandwich": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&h=300&fit=crop&crop=center",
-    Cheeseburger: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center",
-    "Veggie Burger": "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=400&h=300&fit=crop&crop=center",
+    "Chicken Sandwich": "/img/ChickenSandwichMeal.jpg",
+    Cheeseburger: "/img/CheeseBurgerMeal.jpg",
+    "Veggie Burger": "/img/MultipleSlices.jpg",
 
     // Fries
-    "Small fries": "https://images.unsplash.com/photo-1630384060421-cb20aed0a71c?w=400&h=300&fit=crop&crop=center",
-    "Large fries": "https://images.unsplash.com/photo-1630384060421-cb20aed0a71c?w=400&h=300&fit=crop&crop=center",
+    "Small fries": "/img/MultipleSlices.jpg",
+    "Large fries": "/img/MultipleSlices.jpg",
 
     // Dessert - Chocolate Pizzas - using local images from img folder
     "Dubai Chocolate Pizza": "/img/12InchDubaiChocolatePie.webp",
@@ -128,9 +112,8 @@ const getItemImage = (itemName: string, category: string) => {
     "Strawberry Chocolate Pizza": "/img/12InchStrawberryChocolatePie.avif",
 
     // Ice Cream Cones
-    "Ice Cream Cone": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&h=300&fit=crop&crop=center",
-    "Ice Cream Cone with Toppings":
-      "https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=400&h=300&fit=crop&crop=center",
+    "Ice Cream Cone": "/img/MultipleSlices.jpg",
+    "Ice Cream Cone with Toppings": "/img/MultipleSlices.jpg",
   }
 
   return imageMap[itemName] || getCategoryImage(category)
@@ -139,26 +122,24 @@ const getItemImage = (itemName: string, category: string) => {
 // Fallback images by category
 const getCategoryImage = (category: string) => {
   const categoryMap: { [key: string]: string } = {
-    pies: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center",
-    slices: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center",
-    specials: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center",
-    breakfast: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center",
-    sides: "https://images.unsplash.com/photo-1608039755401-742074f0548d?w=400&h=300&fit=crop&crop=center",
-    specialtyPizza: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop&crop=center",
-    beefPatties: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center",
+    pies: "/img/CheesePie.jpg",
+    slices: "/img/CheeseSlice.jpg",
+    specials: "/img/2SlicesWith1Drink.jpg",
+    breakfast: "/img/MultipleSlices.jpg",
+    sides: "/img/12pcsCrispyChickenWingsWithBBQorBuffaloSauce.webp",
+    specialtyPizza: "/img/12InchShrimpPestoPie.avif",
+    beefPatties: "/img/BeefPatty.jpg",
     beverages: "https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=400&h=300&fit=crop&crop=center",
-    hotDogSpecials: "https://images.unsplash.com/photo-1612392062126-2f640e8e5890?w=400&h=300&fit=crop&crop=center",
-    sandwichesAndBurgers:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&crop=center",
-    fries: "https://images.unsplash.com/photo-1630384060421-cb20aed0a71c?w=400&h=300&fit=crop&crop=center",
-    dessertChocolatePizzas:
-      "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400&h=300&fit=crop&crop=center",
-    iceCreamCones: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&h=300&fit=crop&crop=center",
+    hotDogSpecials: "/img/Hotdog.jpg",
+    sandwichesAndBurgers: "/img/CheeseBurgerMeal.jpg",
+    fries: "/img/MultipleSlices.jpg",
+    dessertChocolatePizzas: "/img/DubaiChocolatePizza.jpg",
+    iceCreamCones: "/img/MultipleSlices.jpg",
   }
 
   return (
     categoryMap[category] ||
-    "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&crop=center"
+    "/img/MultipleSlices.jpg"
   )
 }
 

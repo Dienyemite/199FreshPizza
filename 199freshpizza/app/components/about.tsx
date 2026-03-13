@@ -51,29 +51,29 @@ export default function About() {
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
               <img
-                src="https://images.unsplash.com/photo-1747654168933-a0a0c9d78d68?q=80&w=400&auto=format&fit=crop"
-                alt="Pizza making process"
+                src="/img/MultipleSlices.jpg"
+                alt="Pizza slices at $1.99 Fresh Pizza"
                 className="rounded-lg shadow-lg"
                 width={400}
                 height={300}
               />
               <img
-                src="https://images.unsplash.com/photo-1718801594801-feba5ddcb2a4?q=80&w=400&auto=format&fit=crop"
-                alt="Fresh ingredients"
+                src="/img/MultipleSlices.jpg"
+                alt="Pizza slices at $1.99 Fresh Pizza"
                 className="rounded-lg shadow-lg mt-8"
                 width={400}
                 height={300}
               />
               <img
-                src="/img/ChickenRanchSlice.webp"
-                alt="Pizza oven"
+                src="/img/MultipleSlices.jpg"
+                alt="Pizza slices at $1.99 Fresh Pizza"
                 className="rounded-lg shadow-lg -mt-8"
                 width={400}
                 height={300}
               />
               <img
-                src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=400&h=300&fit=crop&crop=center"
-                alt="Our restaurant interior"
+                src="/img/MultipleSlices.jpg"
+                alt="Pizza slices at $1.99 Fresh Pizza"
                 className="rounded-lg shadow-lg"
                 width={400}
                 height={300}
