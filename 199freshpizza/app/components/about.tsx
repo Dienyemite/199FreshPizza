@@ -49,36 +49,13 @@ export default function About() {
           </div>
 
           <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              <img
-                src="/img/MultipleSlices.jpg"
-                alt="Pizza slices at $1.99 Fresh Pizza"
-                className="rounded-lg shadow-lg"
-                width={400}
-                height={300}
-              />
-              <img
-                src="/img/MultipleSlices.jpg"
-                alt="Pizza slices at $1.99 Fresh Pizza"
-                className="rounded-lg shadow-lg mt-8"
-                width={400}
-                height={300}
-              />
-              <img
-                src="/img/MultipleSlices.jpg"
-                alt="Pizza slices at $1.99 Fresh Pizza"
-                className="rounded-lg shadow-lg -mt-8"
-                width={400}
-                height={300}
-              />
-              <img
-                src="/img/MultipleSlices.jpg"
-                alt="Pizza slices at $1.99 Fresh Pizza"
-                className="rounded-lg shadow-lg"
-                width={400}
-                height={300}
-              />
-            </div>
+            <img
+              src="/img/MultipleSlices.jpg"
+              alt="Pizza slices at $1.99 Fresh Pizza"
+              className="rounded-lg shadow-lg mt-8"
+              width={1200}
+              height={900}
+            />
           </div>
         </div>
       </div>
