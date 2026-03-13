@@ -96,7 +96,7 @@ export default function Footer() {
                 Lyndhurst, NJ 07071
               </p>
               <p className="text-albescent-white">Phone: (201)-256-3630</p>
-              <p className="text-albescent-white">Email: info@1.99freshpizza.com</p>
+              <p className="text-albescent-white">Email: 1.99freshpizza@gmail.com</p>
               <p className="text-albescent-white">
                 Hours: Mon-Fri 11AM-9PM
                 <br />
