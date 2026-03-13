@@ -17,7 +17,7 @@ export default function PromotionalBanner() {
         description: "Two cheese slices with your choice of canned soda or water",
         price: 5.0,
         image:
-          "https://images.unsplash.com/photo-1544029048-b78834e2c277?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "/img/2SlicesWith1Drink.jpg", // Same image as in menu-modal.tsx
       })
 
       // Show success state temporarily

@@ -1,6 +1,9 @@
+"use client"
+
+import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { MapPin, Phone, Mail, Clock } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, CheckCircle, AlertCircle } from "lucide-react"
 import GoogleMap from "./google-map"
 
 const contactInfo = [
@@ -26,10 +29,42 @@ const contactInfo = [
   },
 ]
 
-// Restaurant address - you can change this to any address
 const RESTAURANT_ADDRESS = "341 Ridge Road, Lyndhurst, NJ 07071"
 
 export default function Contact() {
+  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", message: "" })
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+  const [errorMsg, setErrorMsg] = useState("")
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.id]: e.target.value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus("sending")
+    setErrorMsg("")
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setErrorMsg(data.error || "Something went wrong.")
+        setStatus("error")
+      } else {
+        setStatus("success")
+        setForm({ firstName: "", lastName: "", email: "", phone: "", message: "" })
+      }
+    } catch {
+      setErrorMsg("Network error. Please try again.")
+      setStatus("error")
+    }
+  }
+
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -107,61 +142,102 @@ export default function Contact() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-cocoa-bean mb-2">
-                      First Name
-                    </label>
-                    <input
-                      id="firstName"
-                      placeholder="John"
-                      className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
-                    />
+                {status === "success" ? (
+                  <div className="flex flex-col items-center text-center py-8 space-y-3">
+                    <CheckCircle className="w-14 h-14 text-green-500" />
+                    <h3 className="text-xl font-bold text-cocoa-bean">Message Sent!</h3>
+                    <p className="text-ferra">Thanks for reaching out. We'll get back to you soon.</p>
+                    <button
+                      onClick={() => setStatus("idle")}
+                      className="text-sm text-siam hover:underline mt-2"
+                    >
+                      Send another message
+                    </button>
                   </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-cocoa-bean mb-2">
-                      Last Name
-                    </label>
-                    <input
-                      id="lastName"
-                      placeholder="Doe"
-                      className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-cocoa-bean mb-2">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="john@example.com"
-                    className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-cocoa-bean mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    placeholder="(555) 123-4567"
-                    className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-cocoa-bean mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    placeholder="Tell us how we can help you..."
-                    className="w-full min-h-[120px] px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam resize-vertical"
-                  ></textarea>
-                </div>
-                <Button className="w-full bg-siam hover:bg-black-olive text-white">Send Message</Button>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-cocoa-bean mb-2">
+                          First Name <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          id="firstName"
+                          value={form.firstName}
+                          onChange={handleChange}
+                          placeholder="John"
+                          required
+                          className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-cocoa-bean mb-2">
+                          Last Name
+                        </label>
+                        <input
+                          id="lastName"
+                          value={form.lastName}
+                          onChange={handleChange}
+                          placeholder="Doe"
+                          className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-cocoa-bean mb-2">
+                        Email <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="john@example.com"
+                        required
+                        className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-cocoa-bean mb-2">
+                        Phone Number
+                      </label>
+                      <input
+                        id="phone"
+                        type="tel"
+                        value={form.phone}
+                        onChange={handleChange}
+                        placeholder="(555) 123-4567"
+                        className="w-full px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-cocoa-bean mb-2">
+                        Message <span className="text-red-500">*</span>
+                      </label>
+                      <textarea
+                        id="message"
+                        value={form.message}
+                        onChange={handleChange}
+                        placeholder="Tell us how we can help you..."
+                        required
+                        className="w-full min-h-[120px] px-3 py-2 border border-venus/30 rounded-md focus:outline-none focus:ring-2 focus:ring-siam focus:border-siam resize-vertical"
+                      />
+                    </div>
+                    {status === "error" && (
+                      <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 p-3 rounded-md">
+                        <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                        {errorMsg}
+                      </div>
+                    )}
+                    <Button
+                      type="submit"
+                      disabled={status === "sending"}
+                      className="w-full bg-siam hover:bg-black-olive text-white disabled:opacity-60"
+                    >
+                      {status === "sending" ? "Sending..." : "Send Message"}
+                    </Button>
+                  </form>
+                )}
               </CardContent>
             </Card>
           </div>
