@@ -194,7 +194,7 @@ function CheckoutForm({ amount, onSuccess, onCancel, orderDetails }: PaymentForm
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-cocoa-bean mb-2">Delivery Address *</label>
+                <label className="block text-sm font-medium text-cocoa-bean mb-2">Address *</label>
                 <input
                   type="text"
                   required

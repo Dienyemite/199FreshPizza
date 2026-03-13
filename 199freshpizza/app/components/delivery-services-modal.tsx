@@ -117,11 +117,11 @@ export default function DeliveryServicesModal({ isOpen, onClose }: DeliveryServi
                   <div className="flex items-center space-x-4 mt-1 text-sm text-venus">
                     <span className="flex items-center">
                       <Clock className="w-4 h-4 mr-1" />
-                      Open until 11:00 PM
+                      Open from 11AM - 9PM Mon-Fri, 11AM - 10PM Sat, 1PM - 9PM Sun
                     </span>
                     <span className="flex items-center">
                       <Star className="w-4 h-4 mr-1 fill-anzac text-anzac" />
-                      4.8 (500+ reviews)
+                      4.8 (25+ Google Star reviews)
                     </span>
                   </div>
                 </div>

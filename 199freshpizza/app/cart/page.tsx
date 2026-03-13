@@ -3,7 +3,7 @@
 import { useCart } from "../context/cart-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag, ExternalLink } from "lucide-react"
+import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 import dynamic from "next/dynamic"
@@ -53,7 +53,7 @@ export default function CartPage() {
     try {
       // Generate order number
       const orderNumber = `PZ${Date.now().toString().slice(-6)}`
-      const estimatedDelivery = new Date(Date.now() + 35 * 60 * 1000).toLocaleTimeString([], {
+      const estimatedPickupTime = new Date(Date.now() + 20 * 60 * 1000).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       })
@@ -62,7 +62,7 @@ export default function CartPage() {
         orderNumber,
         amount: finalTotal,
         customerEmail,
-        estimatedDelivery,
+        estimatedPickupTime,
       })
 
       // Clear cart and show success
@@ -85,38 +85,8 @@ export default function CartPage() {
     return <PaymentSuccess {...orderDetails} />
   }
 
-  // Show checkout method selection
+  // Show checkout screen
   if (showCheckoutOptions && !showPayment) {
-    const platforms = [
-      {
-        id: "doordash",
-        name: "DoorDash",
-        emoji: "🚗",
-        bg: "bg-red-500 hover:bg-red-600",
-        fee: "$2.99",
-        time: "25–35 min",
-        url: "https://www.doordash.com/store/$1.99-fresh-pizza-lyndhurst-32783939/73652746/?cursor=eyJzZWFyY2hfaXRlbV9jYXJvdXNlbF9jdXJzb3IiOnsicXVlcnkiOiIkMS45OSBGcmVzaCBQaXp6YSIsIml0ZW1faWRzIjpbXSwic2VhcmNoX3Rlcm0iOiIxOTkgZnJlc2ggcGl6emEiLCJ2ZXJ0aWNhbF9pZCI6LTk5OSwidmVydGljYWxfbmFtZSI6ImFsbCIsInF1ZXJ5X2ludGVudCI6IlNUT1JFX1JYIn0sInN0b3JlX3ByaW1hcnlfdmVydGljYWxfaWRzIjpbMSw0LDEwMDMzM119&pickup=false",
-      },
-      {
-        id: "grubhub",
-        name: "Grubhub",
-        emoji: "🥡",
-        bg: "bg-orange-500 hover:bg-orange-600",
-        fee: "$3.49",
-        time: "30–40 min",
-        url: "https://www.grubhub.com/restaurant/199-fresh-pizza-341-ridge-rd-lyndhurst/11840792",
-      },
-      {
-        id: "seamless",
-        name: "Seamless",
-        emoji: "🍽️",
-        bg: "bg-green-600 hover:bg-green-700",
-        fee: "$1.99",
-        time: "20–30 min",
-        url: "https://www.seamless.com/menu/199-fresh-pizza-341-ridge-rd-lyndhurst/11840792?utm_source=google&utm_medium=organic&utm_campaign=place-action-link&pickup=true&rwg_token=ACgRB3faUrhiKxwYYTh4SoOKIKwVFGCg4sZj2MLDstwIFQuoCVtP5UV3KFVWxwOI85VS_mUJRrCrvlAvJLt-j0NAHIx0fYCg7A%3D%3D",
-      },
-    ]
-
     return (
       <div className="min-h-screen bg-albescent-white py-8">
         <div className="container mx-auto px-4 max-w-2xl">
@@ -140,9 +110,7 @@ export default function CartPage() {
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-cocoa-bean">How would you like to order?</h2>
-
-            {/* Website checkout — primary option */}
+            {/* Website checkout — temporarily disabled for maintenance
             <button
               onClick={() => { setShowCheckoutOptions(false); setShowPayment(true) }}
               className="w-full bg-siam hover:bg-black-olive text-white rounded-lg p-5 text-left transition-colors flex items-center justify-between"
@@ -153,48 +121,37 @@ export default function CartPage() {
                 </div>
                 <div>
                   <p className="font-bold text-lg">Pay on Website</p>
-                  <p className="text-white/80 text-sm">Secure checkout · No delivery fee</p>
+                  <p className="text-white/80 text-sm">Secure checkout · Takeout only</p>
                 </div>
               </div>
               <span className="text-white/60 text-sm font-medium">Recommended</span>
             </button>
+            */}
 
-            {/* Divider */}
-            <div className="flex items-center gap-3 py-1">
-              <hr className="flex-1 border-venus/30" />
-              <span className="text-sm text-ferra">or order through a delivery app</span>
-              <hr className="flex-1 border-venus/30" />
-            </div>
-
-            {/* Third-party platforms */}
-            {platforms.map((platform) => (
+            {/* Maintenance notice */}
+            <div className="bg-white rounded-lg border border-venus/20 p-6 text-center space-y-4">
+              <div className="w-16 h-16 bg-anzac/10 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-3xl">🍕</span>
+              </div>
+              <div>
+                <p className="font-semibold text-cocoa-bean text-lg mb-1">Online checkout coming soon</p>
+                <p className="text-ferra text-sm">Our online payment system is currently under maintenance. To place a takeout order, please call us directly:</p>
+              </div>
               <a
-                key={platform.id}
-                href={platform.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`w-full ${platform.bg} text-white rounded-lg p-5 flex items-center justify-between transition-colors block`}
+                href="tel:+12012563630"
+                className="inline-flex items-center justify-center bg-siam hover:bg-black-olive text-white font-semibold px-6 py-3 rounded-lg transition-colors"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl">
-                    {platform.emoji}
-                  </div>
-                  <div>
-                    <p className="font-bold text-lg">{platform.name}</p>
-                    <p className="text-white/80 text-sm">{platform.time} · {platform.fee} delivery fee</p>
-                  </div>
-                </div>
-                <ExternalLink className="w-5 h-5 text-white/70 flex-shrink-0" />
+                📞 (201) 256-3630
               </a>
-            ))}
+            </div>
           </div>
         </div>
       </div>
     )
   }
 
-  // Show payment form
-  if (showPayment) {
+  // Show payment form — temporarily disabled for maintenance
+  /* if (showPayment) {
     return (
       <div className="min-h-screen bg-albescent-white py-8">
         <div className="container mx-auto px-4">
@@ -223,7 +180,7 @@ export default function CartPage() {
         </div>
       </div>
     )
-  }
+  } */
 
   // Empty cart state
   if (!state?.items || state.items.length === 0) {
@@ -398,8 +355,8 @@ export default function CartPage() {
                 </div>
 
                 <div className="pt-4 text-xs text-ferra space-y-2">
-                  <p>📍 Delivery to: 341 Ridge Road, Lyndhurst, NJ</p>
-                  <p>⏱️ Estimated delivery: 25-35 minutes</p>
+                  <p>📍 Pickup at: 341 Ridge Road, Lyndhurst, NJ</p>
+                  <p>⏱️ Estimated ready time: 15–20 minutes</p>
                   <p>💳 We accept all major credit cards</p>
                   <p>🔒 Secure payment processing by Stripe</p>
                 </div>

@@ -9,10 +9,10 @@ interface PaymentSuccessProps {
   orderNumber: string
   amount: number
   customerEmail: string
-  estimatedDelivery: string
+  estimatedPickupTime: string
 }
 
-export default function PaymentSuccess({ orderNumber, amount, customerEmail, estimatedDelivery }: PaymentSuccessProps) {
+export default function PaymentSuccess({ orderNumber, amount, customerEmail, estimatedPickupTime }: PaymentSuccessProps) {
   return (
     <div className="min-h-screen bg-albescent-white flex items-center justify-center p-4">
       <Card className="max-w-2xl w-full border-venus/20 shadow-xl">
@@ -42,8 +42,8 @@ export default function PaymentSuccess({ orderNumber, amount, customerEmail, est
                 <p className="font-semibold text-cocoa-bean">{customerEmail}</p>
               </div>
               <div>
-                <p className="text-ferra">Estimated Delivery</p>
-                <p className="font-semibold text-cocoa-bean">{estimatedDelivery}</p>
+                <p className="text-ferra">Estimated Ready Time</p>
+                <p className="font-semibold text-cocoa-bean">{estimatedPickupTime}</p>
               </div>
             </div>
           </div>
@@ -57,8 +57,8 @@ export default function PaymentSuccess({ orderNumber, amount, customerEmail, est
             <ul className="space-y-2 text-sm text-ferra">
               <li>• You'll receive an email confirmation shortly</li>
               <li>• Our kitchen will start preparing your order immediately</li>
-              <li>• You'll get SMS updates on your order status</li>
-              <li>• Our delivery driver will contact you when nearby</li>
+              <li>• Your order will be ready for pickup at the estimated time above</li>
+              <li>• Please come to 341 Ridge Road, Lyndhurst, NJ 07071 to collect your order</li>
             </ul>
           </div>
 

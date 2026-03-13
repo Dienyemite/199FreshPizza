@@ -3,11 +3,6 @@ import { Clock, Users, Award, Heart } from "lucide-react"
 
 const features = [
   {
-    icon: Clock,
-    title: "Fast Delivery",
-    description: "Hot and fresh pizza delivered to your door in 30 minutes or less.",
-  },
-  {
     icon: Users,
     title: "Family Owned",
     description: "A local family business serving the community with passion.",
@@ -27,11 +22,11 @@ export default function About() {
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-cocoa-bean mb-6">About $1.99 FRESH PIZZA</h2>
             <p className="text-lg text-cocoa-bean mb-6 leading-relaxed">
-              $1.99 FRESH PIZZA started with the goal of providing the Lyndhurst neighborhood with delicious, affordable and fresh pizza. It is our guiding principle, and one that which is felt through every slice.
+              $1.99 FRESH PIZZA started with the goal of providing the Lyndhurst neighborhood with delicious, affordable and fresh NY-style pizza. 
             </p>
             <p className="text-lg text-cocoa-bean mb-8 leading-relaxed">
               We believe in using only the freshest ingredients, from our hand-tossed dough made daily to our signature
-              sauce recipe. Every pizza tells a story of quality, craft and love.
+              sauce recipe. Every pizza is made with love.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-6">

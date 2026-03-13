@@ -11,14 +11,14 @@ const monoFont = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrain
 export const metadata: Metadata = {
   title: "$1.99 FRESH PIZZA - Best Pizza in Lyndhurst, NJ | Order Online",
   description:
-    "Order fresh, delicious pizza from $1.99 FRESH PIZZA in Lyndhurst, NJ. Fast delivery, authentic flavors, and unbeatable prices. Call (201) 256-3630 or order online!",
+    "Order fresh, delicious pizza from $1.99 FRESH PIZZA in Lyndhurst, NJ. Authentic flavors and unbeatable prices. Call (201) 256-3630 or order online!",
   keywords: [
-    "pizza delivery Lyndhurst NJ",
+    "pizza takeout Lyndhurst NJ",
     "fresh pizza Lyndhurst",
     "cheap pizza near me",
     "pizza restaurant Lyndhurst",
     "Ridge Road pizza",
-    "pizza delivery 07071",
+    "pizza takeout 07071",
     "best pizza Lyndhurst",
     "online pizza ordering",
     "pizza slices Lyndhurst",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     siteName: "$1.99 FRESH PIZZA",
     title: "$1.99 FRESH PIZZA - Best Pizza in Lyndhurst, NJ",
     description:
-      "Order fresh, delicious pizza from $1.99 FRESH PIZZA in Lyndhurst, NJ. Fast delivery, authentic flavors, and unbeatable prices.",
+      "Order fresh, delicious pizza from $1.99 FRESH PIZZA in Lyndhurst, NJ. Authentic flavors and unbeatable prices.",
     images: [
       {
         url: "/img/18InchCheesePie.webp",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "$1.99 FRESH PIZZA - Best Pizza in Lyndhurst, NJ",
     description:
-      "Order fresh, delicious pizza from $1.99 FRESH PIZZA in Lyndhurst, NJ. Fast delivery, authentic flavors, and unbeatable prices.",
+      "Order fresh, delicious pizza from $1.99 FRESH PIZZA in Lyndhurst, NJ. Authentic flavors and unbeatable prices.",
     images: ["/img/18InchCheesePie.webp"],
   },
   alternates: {
@@ -84,7 +84,7 @@ const structuredData = {
   name: "$1.99 FRESH PIZZA",
   image: "https://www.199freshpizza.com/img/18InchCheesePie.webp",
   description:
-    "Fresh, delicious pizza restaurant in Lyndhurst, NJ offering delivery and pickup with unbeatable prices.",
+    "Fresh, delicious pizza restaurant in Lyndhurst, NJ offering takeout with unbeatable prices.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "341 Ridge Road",
@@ -100,11 +100,11 @@ const structuredData = {
   },
   telephone: "(201) 256-3630",
   url: "https://www.199freshpizza.com",
-  openingHours: ["Mo-Th 11:00-23:00", "Fr-Su 11:00-24:00"],
+  openingHours: ["Mo-Fr 11:00-21:00", "Sa 11:00-22:00", "Su 13:00-21:00"],
   servesCuisine: "Pizza",
   priceRange: "$",
   acceptsReservations: false,
-  hasDeliveryService: true,
+  hasDeliveryService: false,
   hasTakeaway: true,
   aggregateRating: {
     "@type": "AggregateRating",
@@ -112,11 +112,6 @@ const structuredData = {
     reviewCount: "500",
   },
   menu: "https://www.199freshpizza.com/#menu",
-  sameAs: [
-    "https://www.doordash.com/store/$1.99-fresh-pizza-lyndhurst-32783939/73652746/",
-    "https://www.grubhub.com/restaurant/199-fresh-pizza-341-ridge-rd-lyndhurst/11840792",
-    "https://www.seamless.com/menu/199freshpizza-341-ridge-rd-lyndhurst/11840792",
-  ],
 }
 
 export default function RootLayout({

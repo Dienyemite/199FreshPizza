@@ -17,12 +17,12 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    details: ["orders@hrbpizzeria.com"],
+    details: ["1.99freshpizza@gmail.com"],
   },
   {
     icon: Clock,
     title: "Hours",
-    details: ["Mon-Thu: 11AM-11PM", "Fri-Sun: 11AM-12AM"],
+    details: ["Mon-Fri: 11AM-9PM", "Sat: 11AM-10PM", "Sun: 1PM-9PM"],
   },
 ]
 
@@ -91,9 +91,7 @@ export default function Contact() {
             <div className="mt-6 p-4 bg-albescent-white rounded-lg">
               <h4 className="font-semibold text-cocoa-bean mb-2">Location Details</h4>
               <div className="text-sm text-ferra space-y-1">
-                <p>🚗 Free parking available</p>
                 <p>🚌 Near public transportation</p>
-                <p>♿ Wheelchair accessible</p>
                 <p>🏪 Located in the heart of Lyndhurst</p>
               </div>
             </div>

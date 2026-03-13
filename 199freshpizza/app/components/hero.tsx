@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
-import DeliveryServicesModal from "./delivery-services-modal"
 
 // Menu item images - using local images from img folder where available
 const menuImages = [
@@ -58,7 +57,6 @@ const menuItemNames = [
 ]
 
 export default function Hero() {
-  const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
@@ -116,14 +114,14 @@ export default function Hero() {
                 <span className="block text-anzac">Taste The Difference</span>
               </h1>
               <p className="text-xl text-albescent-white/80 leading-relaxed">
-                Experience the perfect blend of fresh ingredients, authentic flavors, and lightning-fast delivery. Your
+                Experience the perfect blend of fresh ingredients and authentic flavors. Your
                 favorite pizza is just a click away!
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
                   className="bg-anzac hover:bg-raw-sienna text-black-olive font-semibold"
-                  onClick={() => setIsDeliveryModalOpen(true)}
+                  onClick={handleViewMenu}
                 >
                   Order Now
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -224,9 +222,6 @@ export default function Hero() {
           </div>
         </div>
       </section>
-
-      {/* Delivery Services Modal */}
-      <DeliveryServicesModal isOpen={isDeliveryModalOpen} onClose={() => setIsDeliveryModalOpen(false)} />
     </>
   )
 }

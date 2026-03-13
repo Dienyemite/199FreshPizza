@@ -13,7 +13,7 @@ export default function Footer() {
               </div>
               <span className="text-2xl font-bold">$1.99 FRESH PIZZA</span>
             </div>
-            <p className="text-albescent-white mb-6">Serving delicious, authentic pizzas. Made with love, delivered with care.</p>
+            <p className="text-albescent-white mb-6">Serving delicious, authentic pizzas. Made with love, served with care.</p>
             <div className="flex space-x-4">
               <Facebook className="w-6 h-6 text-albescent-white hover:text-white cursor-pointer transition-colors" />
               <Twitter className="w-6 h-6 text-albescent-white hover:text-white cursor-pointer transition-colors" />
