@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -57,6 +58,7 @@ const menuItemNames = [
 ]
 
 export default function Hero() {
+  const router = useRouter()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
@@ -72,10 +74,7 @@ export default function Hero() {
   }, [isAutoPlaying])
 
   const handleViewMenu = () => {
-    const menuSection = document.getElementById("menu")
-    if (menuSection) {
-      menuSection.scrollIntoView({ behavior: "smooth" })
-    }
+    router.push("/menu")
   }
 
   const goToPrevious = () => {

@@ -256,7 +256,7 @@ export default function CartPage() {
             <ShoppingBag className="w-24 h-24 text-venus mx-auto mb-6" />
             <h2 className="text-2xl font-bold text-cocoa-bean mb-4">Your cart is empty</h2>
             <p className="text-ferra mb-8">Add some delicious pizzas to get started!</p>
-            <Link href="/">
+            <Link href="/menu">
               <Button className="bg-siam hover:bg-black-olive text-albescent-white">Browse Menu</Button>
             </Link>
           </div>
