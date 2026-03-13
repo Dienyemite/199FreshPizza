@@ -3,7 +3,7 @@
 import { useCart } from "../context/cart-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag } from "lucide-react"
+import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 import dynamic from "next/dynamic"
@@ -126,24 +126,73 @@ export default function CartPage() {
               </div>
               <span className="text-white/60 text-sm font-medium">Recommended</span>
             </button>
+
+            <div className="flex items-center gap-3 py-1">
+              <hr className="flex-1 border-venus/30" />
+              <span className="text-sm text-ferra">or order pickup through an app</span>
+              <hr className="flex-1 border-venus/30" />
+            </div>
             */}
 
-            {/* Maintenance notice */}
-            <div className="bg-white rounded-lg border border-venus/20 p-6 text-center space-y-4">
-              <div className="w-16 h-16 bg-anzac/10 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-3xl">🍕</span>
-              </div>
-              <div>
-                <p className="font-semibold text-cocoa-bean text-lg mb-1">Online checkout coming soon</p>
-                <p className="text-ferra text-sm">Our online payment system is currently under maintenance. To place a takeout order, please call us directly:</p>
-              </div>
-              <a
-                href="tel:+12012563630"
-                className="inline-flex items-center justify-center bg-siam hover:bg-black-olive text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-              >
-                📞 (201) 256-3630
-              </a>
+            {/* Maintenance notice for website checkout */}
+            <div className="bg-white rounded-lg border border-venus/20 p-5 text-center space-y-3">
+              <p className="font-semibold text-cocoa-bean">Online checkout coming soon</p>
+              <p className="text-ferra text-sm">Our website payment system is under maintenance. Order pickup below or call us at <a href="tel:+12012563630" className="font-semibold text-siam">(201) 256-3630</a>.</p>
             </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 py-1">
+              <hr className="flex-1 border-venus/30" />
+              <span className="text-sm text-ferra">order pickup through an app</span>
+              <hr className="flex-1 border-venus/30" />
+            </div>
+
+            {/* Third-party pickup platforms */}
+            {[
+              {
+                id: "doordash",
+                name: "DoorDash",
+                emoji: "🚗",
+                bg: "bg-red-500 hover:bg-red-600",
+                time: "15–20 min pickup",
+                url: "https://www.doordash.com/store/$1.99-fresh-pizza-lyndhurst-32783939/73652746/?cursor=eyJzZWFyY2hfaXRlbV9jYXJvdXNlbF9jdXJzb3IiOnsicXVlcnkiOiIkMS45OSBGcmVzaCBQaXp6YSIsIml0ZW1faWRzIjpbXSwic2VhcmNoX3Rlcm0iOiIxOTkgZnJlc2ggcGl6emEiLCJ2ZXJ0aWNhbF9pZCI6LTk5OSwidmVydGljYWxfbmFtZSI6ImFsbCIsInF1ZXJ5X2ludGVudCI6IlNUT1JFX1JYIn0sInN0b3JlX3ByaW1hcnlfdmVydGljYWxfaWRzIjpbMSw0LDEwMDMzM119&pickup=false",
+              },
+              {
+                id: "grubhub",
+                name: "Grubhub",
+                emoji: "🥡",
+                bg: "bg-orange-500 hover:bg-orange-600",
+                time: "15–20 min pickup",
+                url: "https://www.grubhub.com/restaurant/199-fresh-pizza-341-ridge-rd-lyndhurst/11840792",
+              },
+              {
+                id: "seamless",
+                name: "Seamless",
+                emoji: "🍽️",
+                bg: "bg-green-600 hover:bg-green-700",
+                time: "15–20 min pickup",
+                url: "https://www.seamless.com/menu/199-fresh-pizza-341-ridge-rd-lyndhurst/11840792?utm_source=google&utm_medium=organic&utm_campaign=place-action-link&pickup=true&rwg_token=ACgRB3faUrhiKxwYYTh4SoOKIKwVFGCg4sZj2MLDstwIFQuoCVtP5UV3KFVWxwOI85VS_mUJRrCrvlAvJLt-j0NAHIx0fYCg7A%3D%3D",
+              },
+            ].map((platform) => (
+              <a
+                key={platform.id}
+                href={platform.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full ${platform.bg} text-white rounded-lg p-5 flex items-center justify-between transition-colors block`}
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl">
+                    {platform.emoji}
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg">{platform.name}</p>
+                    <p className="text-white/80 text-sm">🏪 {platform.time} · No delivery fee</p>
+                  </div>
+                </div>
+                <ExternalLink className="w-5 h-5 text-white/70 flex-shrink-0" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
